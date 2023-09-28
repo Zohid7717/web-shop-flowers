@@ -13,7 +13,9 @@ const headerMain: FC = () => {
   }
   return <div className='header-main'>
     <UContainer>
-      <div className="header-main__wrap">
+      <div className="header-main__relative-box">
+        <div className="header-main__wrap">
+        </div>
         <div className="header-main__mobile-nav">
           <div className="header-main__mobile-nav-menu" onClick={heandleViewer}>
             <div className="header-main__mobile-nav-menu-btn">

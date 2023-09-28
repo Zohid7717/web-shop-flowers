@@ -1,10 +1,13 @@
 import { FC } from 'react'
+import Hero from './Hero/Hero'
 
 import './Home.scss'
+import Advantage from './Advantage/Advantage'
 
 const Home: FC = () => {
   return <div>
-    Home
+    <Hero />
+    <Advantage/>
   </div>
 }
 

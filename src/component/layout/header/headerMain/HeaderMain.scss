@@ -1,6 +1,10 @@
 .header-main {
-  &__wrap {
+  &__relative-box{
     position: relative;
+    z-index: 100;
+  }
+  &__wrap {
+    position: fixed;
   }
 
   /*=================================================*/
@@ -60,7 +64,7 @@
   }
 
   &__box {
-    transition: 0.5s;
+    transition: ease-in-out 0.5s;
     background: #FFF; 
     @media (max-width: 770px) {
       position: absolute;
