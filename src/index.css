@@ -8,8 +8,6 @@
 *,
 *:before,
 *:after {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 
@@ -37,9 +35,6 @@ body {
   font-size: 100%;
   line-height: 1;
   font-size: 14px;
-  -ms-text-size-adjust: 100%;
-  -moz-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
 }
 
 .fixed {
@@ -52,9 +47,7 @@ textarea {
   font-family: inherit;
 }
 
-input::-ms-clear {
-  display: none;
-}
+
 
 button {
   cursor: pointer;
@@ -91,6 +84,7 @@ h6 {
   font-size: inherit;
   font-weight: inherit;
 }
+
 @font-face {
   font-family: 'Literal';
   src: url('./fonts/Literal-Bold.eot');
@@ -142,4 +136,6 @@ h6 {
 body {
   font-family: Literal;
   color: #5B4A58;
+  font-style: normal;
+  line-height: normal;
 }

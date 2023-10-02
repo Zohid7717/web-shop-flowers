@@ -1,1 +1,0 @@
-export const PRODUCT_URL="http://localhost:bouquets"

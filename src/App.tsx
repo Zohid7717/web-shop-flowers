@@ -4,6 +4,7 @@ import MainLayout from './component/layout/MainLayout/MainLayout';
 import Home from './pages/Home/Home';
 
 import './App.css'
+import NotFound from './pages/NotFound/NotFound';
 
 
 function App() {
@@ -17,6 +18,13 @@ function App() {
               <p>Loading ...</p>
             }>
               <Home/>
+            </Suspense>
+          } />
+          <Route path='*' element={
+            <Suspense fallback={
+              <p>Loading ...</p>
+            }>
+              <NotFound/>
             </Suspense>
           }/>
         </Route>
