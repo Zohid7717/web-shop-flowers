@@ -1,0 +1,12 @@
+.products{
+  background: #F9F8FB;
+  &__main-list{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  &__wrap{
+    padding: 8.69% 0px 0px 0px;
+    display: flex;
+  }
+}

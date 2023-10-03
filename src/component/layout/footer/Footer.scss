@@ -7,12 +7,18 @@
   &__head-items {
     padding: 2.71% 0px 3.15% 0px;
     display: flex;
+    gap: 20px;
     justify-content: space-between;
+    @media (max-width: 662px){
+      flex-direction: column;
+      align-items: center;
+    }
 
     a {
       color: #FFF;
       font-size: 16px;
       font-weight: 400;
+      white-space: nowrap;
       transition: 0.5s;
 
       &:hover {
