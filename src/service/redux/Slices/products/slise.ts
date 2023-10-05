@@ -37,6 +37,14 @@ export const fetchBouquet = createAsyncThunk<BouquetType[], undefined, { rejectV
     return data
   }
 )
+//получаенм продук по категориям
+export const fetchBouquetFromCat = createAsyncThunk<BouquetType[], undefined, { rejectValue: string }>(
+  'bouquet/fetchBouquetFromCat',
+  async (_, { rejectWithValue, getState }) => {
+    const displayLimit = (getState() as RootState).displayLimit.value
+    const response = await fetch(`http://localhost:3001/bouquets?_limit=${displayLimit}`)
+  }
+)
 
 
 
@@ -60,15 +68,15 @@ const productSlice = createSlice({
         state.list = action.payload
         state.loading = false
       })
-    // .addMatcher(isError, (state, action: PayloadAction<string>) => {
-    //   state.error = action.payload
-    //   state.loading = false
-    // })
+    .addMatcher(isError, (state, action: PayloadAction<string>) => {
+      state.error = action.payload
+      state.loading = false
+    })
   },
 })
 
 export default productSlice.reducer
 
-// function isError(action: AnyAction) {
-//   return action.type.endWith('rejected')
-// }
+function isError(action: AnyAction) {
+  return action.type.endsWith('rejected')
+}

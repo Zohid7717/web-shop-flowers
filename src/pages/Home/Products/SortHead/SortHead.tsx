@@ -4,7 +4,7 @@ import sortHeadBtn from '../../../../assets/icon/sortHead-btn.svg'
 import './SortHead.scss'
 
 const SortHead: FC = () => {
-  const [sortHeadValue, setSortHeadValue] = useState('newness')
+  const [sortHeadValue, setSortHeadValue] = useState('')
   const sortHeadObj = [
     { title: 'Новизне', value: 'newness' },
     { title: 'Цена по возростанию', value: 'increase' },
