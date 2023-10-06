@@ -1,0 +1,43 @@
+.sort-price {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+
+  &__label {
+    cursor: pointer;
+  }
+
+  &__input {
+    display: none;
+  }
+
+  &__new-radio {
+    display: flex;
+    gap: 13px;
+  }
+
+  &__radio-icon {
+    width: 19.5px;
+    height: 19.5px;
+    border: 4.5px solid #E0E0E0;
+    border-radius: 50%;
+    background-color: #BDBDBD;
+  }
+
+  &__radio-icon-dot {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: #6AAE55;
+    border-radius: 50%;
+    transition: 0.5s;
+  }
+
+  &__text-active {
+    transition: 0.5s;
+    color: #5B4A58;
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+}

@@ -42,7 +42,7 @@ export const fetchBouquetFromCat = createAsyncThunk<BouquetType[], undefined, { 
   'bouquet/fetchBouquetFromCat',
   async (_, { rejectWithValue, getState }) => {
     const displayLimit = (getState() as RootState).displayLimit.value
-    const response = await fetch(`http://localhost:3001/bouquets?_limit=${displayLimit}`)
+    const response = await fetch(`http://localhost:3001/bouquets?category=${categoryValue}_limit=${displayLimit}`)
   }
 )
 

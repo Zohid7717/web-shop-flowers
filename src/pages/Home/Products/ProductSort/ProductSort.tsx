@@ -1,6 +1,7 @@
 import { FC } from 'react'
 import './ProductSort.scss'
 import SortInput from './SortInput/SortInput'
+import SortPrice from './SortPrice/SortPrice'
 
 const ProductSort: FC = () => {
   return <div className='product-sort'>
@@ -9,8 +10,9 @@ const ProductSort: FC = () => {
     </div>
     <div className="product-sort__price">
       <p className="product-sort__price-title">Стоимость:</p>
-
+      <SortPrice/>
     </div>
+    
   </div>
 }
 
