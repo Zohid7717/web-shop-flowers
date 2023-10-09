@@ -6,7 +6,7 @@ interface showListType {
 }
 
 const initialState: showListType = {
-  value: 9
+  value: 3
 }
 
 export const DisplayLimitSlice = createSlice({
@@ -14,7 +14,7 @@ export const DisplayLimitSlice = createSlice({
   initialState,
   reducers: {
     showMore: (state) => {
-      state.value += 9
+      state.value += 3
     }
   }
 })

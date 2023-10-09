@@ -1,10 +1,5 @@
 import { FC, useState } from 'react'
 import './SortPrice.scss'
-// type SortPriceType = {
-//   name: string,
-//   value1: number,
-//   value2: number
-// }[]
 
 const SortPrice: FC = () => {
   const [sortPriceName, setSortPriceName] = useState('')
@@ -18,14 +13,14 @@ const SortPrice: FC = () => {
     setSortPriceName(e)
   }
   return <div className='sort-price'>
-    {sortPriceItems.map((item) => (
-      <label className='sort-price__label'>
+    {sortPriceItems.map((item, i) => (
+      <label className='sort-price__label' key={i}>
         <input type='radio' name='sort-price' className='sort-price__input' value={item.name} onChange={(e) => handleGetSortParams(e.target.value)} />
         <div className="sort-price__new-radio">
           <div className="sort-price__radio-icon">
             <span className={sortPriceName === item.name ? "sort-price__radio-icon-dot" : ''}></span>
           </div>
-          <p className={sortPriceName === item.name ? "sort-price__text-active" : "sort-price__text"}><em>{item.name}</em></p>
+          <p className={sortPriceName === item.name ? "sort-price__text-active" : "sort-price__text"}>{item.name}</p>
         </div>
       </label>
     ))}
