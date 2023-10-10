@@ -15,12 +15,10 @@ const categories = [
 
 const SortCategory: FC = () => {
   const [getCategory, setGetCategory]=useState('')
-  const categoryList = useAppSelector(state => state.category)
   const dispatch = useAppDispatch()
   useEffect(() => {
     dispatch(setCategory(getCategory))
   }, [getCategory])
-  console.log(categoryList)
 
   return <div className='sort-category'>
     {
@@ -28,7 +26,7 @@ const SortCategory: FC = () => {
         <CustomRadio key={i} stateElement={getCategory} name={item} nameRadio='sort-category' setStateElement={setGetCategory}/>
       ))
     }
-
+  
   </div>
 }
 

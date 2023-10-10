@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk, AnyAction, PayloadAction } from '@reduxj
 import { RootState } from '../../store';
 
 //создаем типы для Bouquet
-interface BouquetType {
+export interface BouquetType {
   id: number;
   name: string;
   category: string;
