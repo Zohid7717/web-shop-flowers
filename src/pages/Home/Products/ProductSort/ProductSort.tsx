@@ -1,8 +1,8 @@
 import { FC } from 'react'
-import './ProductSort.scss'
 import SortInput from './SortInput/SortInput'
 import SortPrice from './SortPrice/SortPrice'
 import SortCategory from './SortCategory/SortCategory'
+import './ProductSort.scss'
 
 const ProductSort: FC = () => {
   return <div className='product-sort'>

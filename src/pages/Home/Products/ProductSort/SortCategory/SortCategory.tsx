@@ -1,7 +1,9 @@
 import { FC, useEffect, useState } from 'react'
 import './SortCategory.scss'
 import { useAppDispatch, useAppSelector } from '../../../../../service/redux/hooks/hooks'
-import { removeCategory, setCategory } from '../../../../../service/redux/Slices/category/slice'
+import { setCategory } from '../../../../../service/redux/Slices/category/slice'
+import CustomRadio from '../../../../../component/ui/customRadio/CustomRadio'
+import './SortCategory.scss'
 
 const categories = [
   'Монобукеты',
@@ -12,31 +14,18 @@ const categories = [
 ]
 
 const SortCategory: FC = () => {
+  const [getCategory, setGetCategory]=useState('')
   const categoryList = useAppSelector(state => state.category)
   const dispatch = useAppDispatch()
-  const handleChange = (e: string) => {
-    if (categoryList.includes(e)) {
-      dispatch(removeCategory(e))
-    } else {
-      dispatch(setCategory(e))
-    }
-  }
+  useEffect(() => {
+    dispatch(setCategory(getCategory))
+  }, [getCategory])
   console.log(categoryList)
-  
+
   return <div className='sort-category'>
     {
       categories.map((item, i) => (
-        <label key={i} className="sort-category__label">
-          <input
-            type="checkbox"
-            className="sort-category__input"
-            onChange={() => handleChange(item)}
-            checked={categoryList.includes(item)}
-          />
-          <div className="sort-category__icon">
-            <p className="sort-category__title">{item}</p>
-          </div>
-        </label>
+        <CustomRadio key={i} stateElement={getCategory} name={item} nameRadio='sort-category' setStateElement={setGetCategory}/>
       ))
     }
 

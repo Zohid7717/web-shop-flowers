@@ -1,7 +1,7 @@
 import { FC, useEffect } from 'react'
 import SortHead from './SortHead/SortHead'
 import { useAppDispatch, useAppSelector } from '../../../service/redux/hooks/hooks'
-import { fetchBouquet } from '../../../service/redux/Slices/products/slise'
+import { fetchBouquet, fetchBouquetFromCat } from '../../../service/redux/Slices/products/slise'
 import UContainer from '../../../component/utils/UContainer/UContainer'
 import ProductCard from './ProductCard/ProductCard'
 import ProductSort from './ProductSort/ProductSort'
@@ -14,6 +14,7 @@ import ProductCardSkeleton from '../../../component/Skeleton/ProductCard/Product
 const Products: FC = () => {
   const displayLimit = useAppSelector((state) => state.displayLimit.value)
   const dispatch = useAppDispatch()
+  const categoryValue = useAppSelector(state => state.category.value)
   const { list, loading } = useAppSelector((state) => state.dataProducts)
   const handleShowMore = () => {
     dispatch(showMore())
@@ -28,7 +29,11 @@ const Products: FC = () => {
     hidden: { opacity: 0 }
   }
   useEffect(() => {
-    dispatch(fetchBouquet())
+    if (categoryValue) {
+      dispatch(fetchBouquetFromCat())
+    } else {
+      dispatch(fetchBouquet())
+    }
   }, [displayLimit])
   const bouquet = list.map((item, i) => (
     <motion.div
@@ -53,7 +58,6 @@ const Products: FC = () => {
             {loading === true ?
               skeleton :
               bouquet}
-
           </div>
           <button className='products__show-more green' onClick={() => handleShowMore()}>
             Показать еще

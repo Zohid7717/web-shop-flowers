@@ -1,25 +1,25 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { RootState } from '../../store'
 
-type categoryType = string[]
+interface categoryType {
+  value: string
+}
 
-const initialState: categoryType = []
-
+const initialState: categoryType = {
+  value: ''
+}
 const categorySlice = createSlice({
   name: 'category',
   initialState,
   reducers: {
     setCategory: (state, action: PayloadAction<string>) => {
-      state.push(action.payload)
-    },
-    removeCategory: (state, action: PayloadAction<string>) => {
-      return state.filter(category => category !== action.payload)
+      state.value = action.payload
     }
   }
 })
 
-export const { setCategory, removeCategory } = categorySlice.actions
+export const { setCategory } = categorySlice.actions
 
-export const categoryResult = (state: RootState) => state.category
+export const categoryResult = (state: RootState) => state.category.value
 
 export default categorySlice.reducer

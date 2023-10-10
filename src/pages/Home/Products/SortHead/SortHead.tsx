@@ -14,8 +14,9 @@ const SortHead: FC = () => {
   return <div className='sortHead'>
     <p className="sortHead__title">Сортировать по:</p>
     <ul className="sortHead__items">
-      {sortHeadObj.map((item) => (
+      {sortHeadObj.map((item, i) => (
         <li
+          key={i}
           className={
             sortHeadValue === item.value ?
               "sortHead__item active" :
