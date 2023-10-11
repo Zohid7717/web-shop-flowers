@@ -2,12 +2,14 @@ import { configureStore } from '@reduxjs/toolkit'
 import DisplayLimitSlice from './Slices/displayLimit/slice'
 import dataProducts from './Slices/products/slise'
 import category from './Slices/category/slice'
+import productItems from './Slices/productItems/slice'
 
 export const store = configureStore({
   reducer: {
     displayLimit: DisplayLimitSlice,
     dataProducts,
-    category
+    category,
+    productItems
   }
 })
 

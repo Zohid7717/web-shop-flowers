@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react'
 import './SortCategory.scss'
-import { useAppDispatch, useAppSelector } from '../../../../../service/redux/hooks/hooks'
+import { useAppDispatch } from '../../../../../service/redux/hooks/hooks'
 import { setCategory } from '../../../../../service/redux/Slices/category/slice'
 import CustomRadio from '../../../../../component/ui/customRadio/CustomRadio'
 import './SortCategory.scss'
