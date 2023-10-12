@@ -1,24 +1,26 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../store';
 
-type ProductItemsType = string[]
+type ProductItemsType = {
+  value:string[]
+}
 
-const initialState: ProductItemsType = []
+
+const initialState: ProductItemsType = {
+  value: []
+}
 
 const productItemsSlice = createSlice({
   name: 'productItems',
   initialState,
   reducers: {
-    setProductItems: (state, action: PayloadAction<string>) => {
-      state.push(action.payload)
+    setProductItems: (state, action: PayloadAction<string[]>) => {
+      state.value = action.payload
     },
-    removeProductItems: (state, action: PayloadAction<string>) => {
-      return state.filter(item => item !== action.payload)
-    }
   }
 })
 
-export const { setProductItems, removeProductItems } = productItemsSlice.actions
+export const { setProductItems } = productItemsSlice.actions
 
 export const productItemsResult = (state: RootState) => state.productItems
 

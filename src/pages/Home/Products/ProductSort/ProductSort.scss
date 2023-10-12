@@ -5,7 +5,8 @@
 
   &__price,
   &__category,
-  &__items {
+  &__items,
+  &__btn {
     padding: 14px;
     border-bottom: 1px solid #F2F2F2;
   }
@@ -17,5 +18,12 @@
     font-size: 14px;
     font-weight: 700;
     margin-bottom: 10px;
+  }
+  &__btn{
+    display: flex;
+    gap: 15px;
+    &>button{
+      width: 50%;
+    }
   }
 }

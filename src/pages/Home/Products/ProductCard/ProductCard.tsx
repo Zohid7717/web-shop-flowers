@@ -22,8 +22,7 @@ const ProductCard: FC<ProductCardType> = ({ id, name, size, image }) => {
     <div className="product-card__content">
       <p className="product-card__name">{name}</p>
       <p className="product-card__price">
-        <span product-card__price-num>{(size[0].price).toLocaleString()}</span>
-        <span product-card__price-text>руб.</span>
+        <span product-card__price-num>{(size[0].price).toLocaleString()} руб.</span>
       </p>
       <button className='UBtn-active product-card__btn'>В корзину</button>
     </div>

@@ -22,7 +22,10 @@ const ProductSort: FC = () => {
       <p className="product-sort__items-title">Букеты с...</p>
       <SortItems/>
     </div>
-    
+    <div className="product-sort__btn">
+      <button className='UBtn-active product-sort__btn-clear'>Очистить</button>
+      <button className='UBtn-active product-sort__btn-submit'>Поиск</button>
+    </div>
   </div>
 }
 

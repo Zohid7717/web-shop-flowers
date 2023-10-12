@@ -2,25 +2,22 @@ import { FC, useEffect, useState } from 'react'
 import CustomCheckbox from '../../../../../component/ui/customCheckbox/CustomCheckbox'
 import { BouquetType } from '../../../../../service/redux/Slices/products/slise'
 import { useAppDispatch, useAppSelector } from '../../../../../service/redux/hooks/hooks'
-import { removeProductItems, setProductItems } from '../../../../../service/redux/Slices/productItems/slice'
+import { setProductItems } from '../../../../../service/redux/Slices/productItems/slice'
+import './SortItems.scss'
 
 const SortItems: FC = () => {
   const [productData, setProductData] = useState<BouquetType[]>([])
   const productItems: string[] = []
-  const [items, setItems] = useState('')
+  const [items, setItems] = useState<string[]>([])
+  const [showItems, setShowItems] = useState(8)
+  
 
-  const productItemsList = useAppSelector(state => state.productItems)
+  const productItemsList = useAppSelector(state => state.productItems.value)
 
   const dispatch = useAppDispatch()
 
-  useEffect(() => {
-    if (productItemsList.includes(items)) {
-      dispatch(removeProductItems(items))
-    } else{
-      dispatch(setProductItems(items))
-    }
-    
-  }, [items])
+  dispatch(setProductItems(items))
+  console.log(productItemsList)
 
   useEffect(() => {
     const productList = async function () {
@@ -38,19 +35,18 @@ const SortItems: FC = () => {
   }, [])
   productData.forEach(element => {
     element.composition.forEach(element => {
-
       if (!productItems.includes(element)) {
         productItems.push(element)
       }
     })
   });
-  console.log(productItemsList)
   return <div className='sort-items'>
     {
       productItems.map((item, i) => (
-        <CustomCheckbox key={i} name={item} setStateElement={setItems} />
+        <CustomCheckbox key={i} name={item} setStateElement={setItems} stateElement={items} />
       ))
     }
+    <p className='sort-items__show-more green'>Показать еще</p>
   </div>
 }
 
