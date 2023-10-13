@@ -7,17 +7,15 @@ import './SortItems.scss'
 
 const SortItems: FC = () => {
   const [productData, setProductData] = useState<BouquetType[]>([])
-  const productItems: string[] = []
+  const [productArr, setProductArr] = useState<string[]>([])
   const [items, setItems] = useState<string[]>([])
   const [showItems, setShowItems] = useState(8)
-  const itemsArr: string[] = []
 
   const productItemsList = useAppSelector(state => state.productItems.value)
 
   const dispatch = useAppDispatch()
 
   dispatch(setProductItems(items))
-  console.log(productItemsList)
 
   useEffect(() => {
     const productList = async function () {
@@ -40,14 +38,9 @@ const SortItems: FC = () => {
       }
     })
   });
-  useEffect(() => {
-    for (let i = 0; i < showItems; i++) {
-      itemsArr.push(productItems[i])
-    }
-  }, [showItems])
   return <div className='sort-items'>
     {
-      itemsArr.map((item, i) => (
+      productItems.map((item, i) => (
         <CustomCheckbox key={i} name={item} setStateElement={setItems} stateElement={items} />
       ))
     }

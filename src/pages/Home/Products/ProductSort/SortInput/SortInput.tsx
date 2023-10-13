@@ -2,7 +2,7 @@ import { FC, useState } from 'react'
 import './SortInput.scss'
 
 const SortInput: FC = () => {
-  const [sortInputValue, setSortInputValue] = useState('')
+  const [setSortInputValue] = useState('')
   
   return <div className='sort-input'>
     <input
