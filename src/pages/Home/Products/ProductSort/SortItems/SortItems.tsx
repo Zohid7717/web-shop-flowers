@@ -10,7 +10,7 @@ const SortItems: FC = () => {
   const productItems: string[] = []
   const [items, setItems] = useState<string[]>([])
   const [showItems, setShowItems] = useState(8)
-  
+  const itemsArr: string[] = []
 
   const productItemsList = useAppSelector(state => state.productItems.value)
 
@@ -40,9 +40,14 @@ const SortItems: FC = () => {
       }
     })
   });
+  useEffect(() => {
+    for (let i = 0; i < showItems; i++) {
+      itemsArr.push(productItems[i])
+    }
+  }, [showItems])
   return <div className='sort-items'>
     {
-      productItems.map((item, i) => (
+      itemsArr.map((item, i) => (
         <CustomCheckbox key={i} name={item} setStateElement={setItems} stateElement={items} />
       ))
     }

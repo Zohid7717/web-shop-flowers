@@ -4,7 +4,6 @@ import './SortInput.scss'
 const SortInput: FC = () => {
   const [sortInputValue, setSortInputValue] = useState('')
   
-  console.log(sortInputValue)
   return <div className='sort-input'>
     <input
       type="text"
