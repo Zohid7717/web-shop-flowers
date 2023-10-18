@@ -5,10 +5,11 @@ import './CustomCheckbox.scss'
 interface CustomChackboxProps {
   name: string;
   setStateElement: (value: string[]) => void;
-  stateElement: string[]
+  stateElement: string[];
+  isDisabled: boolean
 }
 
-const CustomCheckbox: FC<CustomChackboxProps> = ({ name, setStateElement, stateElement }) => {
+const CustomCheckbox: FC<CustomChackboxProps> = ({ name, setStateElement, stateElement, isDisabled }) => {
   const [isChecked, setIsChecked] = useState(false);
   const handleCheckStateElement = (e: ChangeEvent<HTMLInputElement>) => {
     if (stateElement.includes(e.target.value)) {
@@ -25,7 +26,7 @@ const CustomCheckbox: FC<CustomChackboxProps> = ({ name, setStateElement, stateE
 
   return <div className='custom-checkbox'>
     <label className="custom-checkbox__label">
-    <input type="checkbox" checked={isChecked} className="custom-checkbox__input" value={name} onChange={handleCheckStateElement} />
+      <input type="checkbox" checked={isChecked} className="custom-checkbox__input" value={name} onChange={handleCheckStateElement} disabled={isDisabled} />
       <div className="custom-checkbox__new-checkbox">
         <div className={isChecked ? "custom-checkbox__checkbox-icon check-active-icon" : "custom-checkbox__checkbox-icon"}>
           <img src={checkIcon} alt="chechIcon" />

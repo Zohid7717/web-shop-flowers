@@ -13,7 +13,11 @@ const categories = [
   'Фруктовые'
 ]
 
-const SortCategory: FC = () => {
+interface SortCategoryProps{
+  isDisabled: boolean
+}
+
+const SortCategory: FC<SortCategoryProps> = ({isDisabled}) => {
   const [getCategory, setGetCategory]=useState('')
   const dispatch = useAppDispatch()
   useEffect(() => {

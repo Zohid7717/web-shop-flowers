@@ -1,15 +1,17 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import './SortInput.scss'
 
-const SortInput: FC = () => {
-  const [setSortInputValue] = useState('')
-  
+interface SortInputProps {
+  getValue: (value: string)=>void
+}
+
+const SortInput: FC<SortInputProps> = ({getValue }) => {
   return <div className='sort-input'>
     <input
       type="text"
       placeholder='Поиск по названию...'
       className='sort-input__search'
-      onChange={(event)=>setSortInputValue(event.target.value)}
+      onChange={(event)=>getValue(event.target.value)}
     />
   </div>
 }

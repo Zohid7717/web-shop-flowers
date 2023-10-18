@@ -1,21 +1,35 @@
 import { FC, useEffect, useState } from 'react'
 import CustomCheckbox from '../../../../../component/ui/customCheckbox/CustomCheckbox'
-import { BouquetType } from '../../../../../service/redux/Slices/products/slise'
-import { useAppDispatch, useAppSelector } from '../../../../../service/redux/hooks/hooks'
+import { BouquetType } from '../../../../../service/redux/Slices/products/slice'
+import { useAppDispatch } from '../../../../../service/redux/hooks/hooks'
 import { setProductItems } from '../../../../../service/redux/Slices/productItems/slice'
 import './SortItems.scss'
 
-const SortItems: FC = () => {
+interface SortItemsProps{
+  isDisabled: boolean
+}
+
+const SortItems: FC<SortItemsProps> = ({isDisabled}) => {
   const [productData, setProductData] = useState<BouquetType[]>([])
   const [productArr, setProductArr] = useState<string[]>([])
   const [items, setItems] = useState<string[]>([])
-  const [showItems, setShowItems] = useState(8)
-
-  const productItemsList = useAppSelector(state => state.productItems.value)
+  const [showItems, setShowItems] = useState<number>(8)
+  const [disabled, setDisabled] = useState<boolean>(false)
+  const [showQty, setShowQty] = useState<string[]>([])
 
   const dispatch = useAppDispatch()
 
   dispatch(setProductItems(items))
+
+  const addShowItems = () => {
+    if ((productArr.length - showItems) > 8) {
+      setShowItems(showItems + 8)
+      setDisabled(false)
+    } else {
+      setShowItems(showItems + (productArr.length - showItems))
+      setDisabled(true)
+    }
+  }
 
   useEffect(() => {
     const productList = async function () {
@@ -31,20 +45,36 @@ const SortItems: FC = () => {
     }
     productList()
   }, [])
-  productData.forEach(element => {
-    element.composition.forEach(element => {
-      if (!productItems.includes(element)) {
-        productItems.push(element)
-      }
+  useEffect(() => {
+    let newArr: string[] = []
+    let i: number = 0
+    productData.forEach(element => {
+      element.composition.forEach(item => {
+        if (!newArr.includes(item)) {
+          i++
+          newArr.push(item)
+        }
+      })
     })
-  });
+    setProductArr(newArr)
+  }, [productData])
+  useEffect(() => {
+    let newArr: string[] = []
+    for (let i = 0; i < showItems; i++) {
+      newArr.push(productArr[i])
+    }
+    setShowQty(newArr)
+  }, [showItems, productArr])
   return <div className='sort-items'>
     {
-      productItems.map((item, i) => (
-        <CustomCheckbox key={i} name={item} setStateElement={setItems} stateElement={items} />
+      showQty.map((item, i) => (
+        <CustomCheckbox key={i} name={item} setStateElement={setItems} stateElement={items} isDisabled={ isDisabled} />
       ))
     }
-    <p className='sort-items__show-more green'>Показать еще</p>
+    {
+      disabled ? '' : <button className='sort-items__show-more green' disabled={disabled} onClick={addShowItems}>Показать еще</button>
+    }
+
   </div>
 }
 

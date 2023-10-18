@@ -8,8 +8,8 @@ type CustomRadioType = {
   setStateElement: (value: string) => void;
 }
 
-const CustomRadio: FC<CustomRadioType> = ({name, nameRadio, stateElement , setStateElement}) => {
-  const handleGetSortParams = (e:string) => {
+const CustomRadio: FC<CustomRadioType> = ({ name, nameRadio, stateElement, setStateElement }) => {
+  const handleGetSortParams = (e: string) => {
     setStateElement(e)
   }
   return <div className='custom-radio'>

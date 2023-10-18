@@ -1,7 +1,7 @@
-import { FC, useEffect } from 'react'
+import { FC, useEffect, useState } from 'react'
 import SortHead from './SortHead/SortHead'
 import { useAppDispatch, useAppSelector } from '../../../service/redux/hooks/hooks'
-import { fetchBouquet, fetchBouquetFromCat } from '../../../service/redux/Slices/products/slise'
+import { fetchBouquet, fetchBouquetFromCat, fetchBouquetFromName } from '../../../service/redux/Slices/products/slice'
 import UContainer from '../../../component/utils/UContainer/UContainer'
 import ProductCard from './ProductCard/ProductCard'
 import ProductSort from './ProductSort/ProductSort'
@@ -15,7 +15,19 @@ const Products: FC = () => {
   const displayLimit = useAppSelector((state) => state.displayLimit.value)
   const dispatch = useAppDispatch()
   const categoryValue = useAppSelector(state => state.category.value)
+  const inputValue = useAppSelector(state => state.inputValue.value)
   const { list, loading } = useAppSelector((state) => state.dataProducts)
+  const [sortPriseObj, setSortPriceObj] = useState<{
+    name: string;
+    value1: number;
+    value2: number;
+  }>({
+    name: '',
+    value1: 0,
+    value2: 0
+  })
+  const [lastList, setLastList]=useState([])
+  console.log(sortPriseObj)
   const handleShowMore = () => {
     dispatch(showMore())
   }
@@ -28,14 +40,36 @@ const Products: FC = () => {
     }),
     hidden: { opacity: 0 }
   }
+
   useEffect(() => {
-    if (categoryValue) {
-      dispatch(fetchBouquetFromCat())
+    if (inputValue.length > 0) {
+      dispatch(fetchBouquetFromName())
     } else {
-      dispatch(fetchBouquet())
+      if (categoryValue) {
+        dispatch(fetchBouquetFromCat())
+      } else {
+        dispatch(fetchBouquet())
+      }
     }
-  }, [displayLimit])
-  const bouquet = list.map((item, i) => (
+  }, [displayLimit, inputValue])
+
+  useEffect(() => {
+    if (sortPriseObj.value2 > 1) {
+      let newArr=[]
+      list.forEach(item => {
+        item.size.forEach(element => {
+          if (element.price > sortPriseObj.value1 && element.price < sortPriseObj.value2) {
+            newArr.push(item)
+          }
+        })
+      })
+      setLastList(newArr)
+    } else {
+      setLastList(list)
+    }
+  },[sortPriseObj])
+
+  const bouquet = lastList.map((item, i) => (
     <motion.div
       key={item.id}
       variants={listVariants}
@@ -64,7 +98,7 @@ const Products: FC = () => {
           </button>
         </div>
         <div className="products__sort">
-          <ProductSort />
+          <ProductSort setSortPriceObj={setSortPriceObj} />
         </div>
       </div>
     </UContainer>
