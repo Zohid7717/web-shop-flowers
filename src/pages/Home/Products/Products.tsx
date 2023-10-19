@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react'
 import SortHead from './SortHead/SortHead'
 import { useAppDispatch, useAppSelector } from '../../../service/redux/hooks/hooks'
-import { fetchBouquet, fetchBouquetFromCat, fetchBouquetFromName } from '../../../service/redux/Slices/products/slice'
+import { BouquetType, fetchBouquet, fetchBouquetFromCat, fetchBouquetFromName } from '../../../service/redux/Slices/products/slice'
 import UContainer from '../../../component/utils/UContainer/UContainer'
 import ProductCard from './ProductCard/ProductCard'
 import ProductSort from './ProductSort/ProductSort'
@@ -11,23 +11,21 @@ import { motion } from 'framer-motion'
 import './Products.scss'
 import ProductCardSkeleton from '../../../component/Skeleton/ProductCard/ProductCardSkeleton'
 
+type sortPriseObjType = {
+  name: string;
+  value1: number;
+  value2: number;
+}
+
 const Products: FC = () => {
-  const displayLimit = useAppSelector((state) => state.displayLimit.value)
+  const displayLimit: number = useAppSelector((state) => state.displayLimit.value)
   const dispatch = useAppDispatch()
   const categoryValue = useAppSelector(state => state.category.value)
   const inputValue = useAppSelector(state => state.inputValue.value)
   const { list, loading } = useAppSelector((state) => state.dataProducts)
-  const [sortPriseObj, setSortPriceObj] = useState<{
-    name: string;
-    value1: number;
-    value2: number;
-  }>({
-    name: '',
-    value1: 0,
-    value2: 0
-  })
-  const [lastList, setLastList]=useState([])
-  console.log(sortPriseObj)
+  const [sortPriseObj, setSortPriceObj] = useState<sortPriseObjType>({ name: '', value1: 0, value2: 0, })
+  const [lastList, setLastList] = useState<BouquetType[]>([])
+ 
   const handleShowMore = () => {
     dispatch(showMore())
   }
@@ -44,31 +42,22 @@ const Products: FC = () => {
   useEffect(() => {
     if (inputValue.length > 0) {
       dispatch(fetchBouquetFromName())
-    } else {
-      if (categoryValue) {
-        dispatch(fetchBouquetFromCat())
-      } else {
-        dispatch(fetchBouquet())
-      }
-    }
-  }, [displayLimit, inputValue])
-
-  useEffect(() => {
-    if (sortPriseObj.value2 > 1) {
-      let newArr=[]
+      setLastList(list)
+    } if (sortPriseObj.value2 > 1) {
+      setLastList([])
       list.forEach(item => {
         item.size.forEach(element => {
           if (element.price > sortPriseObj.value1 && element.price < sortPriseObj.value2) {
-            newArr.push(item)
+            setLastList([...lastList, item])
           }
         })
       })
-      setLastList(newArr)
     } else {
+      dispatch(fetchBouquet())
       setLastList(list)
     }
-  },[sortPriseObj])
-
+  }, [displayLimit, inputValue, sortPriseObj])
+  console.log(list)
   const bouquet = lastList.map((item, i) => (
     <motion.div
       key={item.id}
