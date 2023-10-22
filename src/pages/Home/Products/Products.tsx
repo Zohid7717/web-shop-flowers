@@ -25,7 +25,33 @@ const Products: FC = () => {
   const { list, loading } = useAppSelector((state) => state.dataProducts)
   const [sortPriseObj, setSortPriceObj] = useState<sortPriseObjType>({ name: '', value1: 0, value2: 0, })
   const [lastList, setLastList] = useState<BouquetType[]>([])
- 
+//функция филтрации продуктов по цене
+  function sortByPrice(arr: BouquetType[]) {
+    arr.forEach(item => {
+      item.size.forEach(element => {
+        if (element.price > sortPriseObj.value1 && element.price < sortPriseObj.value2 && !lastList.includes(item)) {
+          setLastList([...lastList, item])
+        }
+      })
+    })
+  }
+//функция филтрации продуктов по содержанию продукта
+  function SortByItems(arr1: BouquetType[], arr2: string[]) {
+    let newArr: BouquetType[] = []
+    arr1.forEach(element => {
+      if (!newArr.includes(element)) {
+        arr2.forEach(item => {
+          element.composition.forEach(flo => {
+            if (item === flo && !newArr.includes(element)) {
+              newArr.push(element)
+            }
+          })
+        })
+      }
+    })
+    setLastList(newArr)
+  }
+
   const handleShowMore = () => {
     dispatch(showMore())
   }
@@ -43,20 +69,11 @@ const Products: FC = () => {
     if (inputValue.length > 0) {
       dispatch(fetchBouquetFromName())
       setLastList(list)
-    } if (sortPriseObj.value2 > 1) {
-      setLastList([])
-      list.forEach(item => {
-        item.size.forEach(element => {
-          if (element.price > sortPriseObj.value1 && element.price < sortPriseObj.value2) {
-            setLastList([...lastList, item])
-          }
-        })
-      })
     } else {
       dispatch(fetchBouquet())
       setLastList(list)
     }
-  }, [displayLimit, inputValue, sortPriseObj])
+  }, [displayLimit, inputValue])
   console.log(list)
   const bouquet = lastList.map((item, i) => (
     <motion.div

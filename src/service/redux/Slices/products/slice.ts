@@ -41,9 +41,8 @@ export const fetchBouquet = createAsyncThunk<BouquetType[], undefined, { rejectV
 export const fetchBouquetFromCat = createAsyncThunk<BouquetType[], undefined, { rejectValue: string }>(
   'bouquet/fetchBouquetFromCat',
   async (_, { rejectWithValue, getState }) => {
-    const displayLimit = (getState() as RootState).displayLimit.value
     const categoryValue = (getState() as RootState).category.value
-    const response = await fetch(`http://localhost:3001/bouquets?category=${categoryValue}&_limit=${displayLimit}`)
+    const response = await fetch(`http://localhost:3001/bouquets?category=${categoryValue}`)
     if (!response.ok) {
       return rejectWithValue('Server error')
     }
@@ -58,6 +57,19 @@ export const fetchBouquetFromName = createAsyncThunk<BouquetType[], undefined, {
   async (_, { rejectWithValue, getState }) => {
     const inputValue = (getState() as RootState).inputValue.value
     const response = await fetch(`http://localhost:3001/bouquets?name_like=${inputValue}`)
+    if (!response.ok) {
+      return rejectWithValue('Server error')
+    }
+    const data = await response.json()
+    return data
+  }
+)
+
+//получения всех продуктов
+export const fetchAllBouquet = createAsyncThunk<BouquetType[], undefined, { rejectValue: string }>(
+  'bouquet/fetchAllBouquet',
+  async (_, { rejectWithValue }) => {
+    const response = await fetch(`http://localhost:3001/bouquets`)
     if (!response.ok) {
       return rejectWithValue('Server error')
     }
@@ -99,6 +111,14 @@ const productSlice = createSlice({
         state.error = null
       })
       .addCase(fetchBouquetFromName.fulfilled, (state, action) => {
+        state.list = action.payload
+        state.loading = false
+      })
+      .addCase(fetchAllBouquet.pending, (state) => {
+        state.loading = true
+        state.error = null
+      })
+      .addCase(fetchAllBouquet.fulfilled, (state, action) => {
         state.list = action.payload
         state.loading = false
       })
