@@ -12,10 +12,11 @@ interface ProductSortProps {
     name: string;
     value1: number;
     value2: number;
-  }) => void
+  }) => void,
+  handleFilter: ()=> void
 }
 
-const ProductSort: FC<ProductSortProps> = ({ setSortPriceObj }) => {
+const ProductSort: FC<ProductSortProps> = ({ setSortPriceObj, handleFilter }) => {
   const [isDisabled, setIsDisabled] = useState<boolean>(false)
   const [sortInputValue, setSortInputValue] = useState<string>('')
   const inputValue = useAppSelector(state => state.inputValue.value)
@@ -48,7 +49,7 @@ const ProductSort: FC<ProductSortProps> = ({ setSortPriceObj }) => {
     </div>
     <div className="product-sort__btn">
       <button className='UBtn-active product-sort__btn-clear'>Очистить</button>
-      <button className='UBtn-active product-sort__btn-submit'>Поиск</button>
+      <button className='UBtn-active product-sort__btn-submit' onClick={handleFilter}>Поиск</button>
     </div>
   </div>
 }
