@@ -11,12 +11,6 @@ import { motion } from 'framer-motion'
 import './Products.scss'
 import ProductCardSkeleton from '../../../component/Skeleton/ProductCard/ProductCardSkeleton'
 
-type sortPriceObjType = {
-  name: string;
-  value1: number;
-  value2: number;
-}
-
 const Products: FC = () => {
   const dispatch = useAppDispatch()
   const displayLimit: number = useAppSelector((state) => state.displayLimit.value)
@@ -24,21 +18,18 @@ const Products: FC = () => {
   const inputValue = useAppSelector(state => state.inputValue.value)
   const { list, loading } = useAppSelector((state) => state.dataProducts)
   const productItems = useAppSelector(state => state.productItems.value)
-  const [sortPriceObj, setSortPriceObj] = useState<sortPriceObjType>({ name: '', value1: 0, value2: 0, })
   const [lastList, setLastList] = useState<BouquetType[]>([])
-  const [filterList1, setFilterList1] = useState<BouquetType[]>([])
-  const [filterList2, setFilterList2] = useState<BouquetType[]>([])
 
   //функция филтрации продуктов по цене
-  function sortByPrice(arr: BouquetType[]) {
-    arr.forEach(item => {
-      item.size.forEach(element => {
-        if (element.price > sortPriceObj.value1 && element.price < sortPriceObj.value2 && !lastList.includes(item)) {
-          setFilterList1([...filterList1, item])
-        }
-      })
-    })
-  }
+  // function sortByPrice(arr: BouquetType[]) {
+  //   arr.forEach(item => {
+  //     item.size.forEach(element => {
+  //       if (element.price > sortPriceObj.value1 && element.price < sortPriceObj.value2 && !lastList.includes(item)) {
+  //         setFilterList1([...filterList1, item])
+  //       }
+  //     })
+  //   })
+  // }
 
   //функция филтрации продуктов по содержанию продукта
   function sortByItems(arr1: BouquetType[], arr2: string[]) {
@@ -54,26 +45,26 @@ const Products: FC = () => {
         })
       }
     })
-    setFilterList2(newArr)
+    setLastList(newArr)
   }
 
-  const handleFilter = () => {
-    if (sortPriceObj.value2 > 1) {
-      sortByPrice(list)
-      if (productItems.length > 0) {
-        sortByItems(filterList1, productItems)
-      } else {
-        setFilterList2(filterList1)
-      }
-    } else {
-      if (productItems.length > 0) {
-        sortByItems(list, productItems)
-      } else {
-        setFilterList2(list)
-      }
-    }
-    console.log(filterList2)
-  }
+  // const handleFilter = () => {
+  //   if (sortPriceObj.value2 > 1) {
+      // sortByPrice(list)
+  //     if (productItems.length > 0) {
+  //       sortByItems(filterList1, productItems)
+  //     } else {
+  //       setFilterList2(filterList1)
+  //     }
+  //   } else {
+  //     if (productItems.length > 0) {
+  //       sortByItems(list, productItems)
+  //     } else {
+  //       setFilterList2(list)
+  //     }
+  //   }
+  //   console.log(filterList2)
+  // }
 
   const handleShowMore = () => {
     dispatch(showMore())
@@ -88,20 +79,11 @@ const Products: FC = () => {
     hidden: { opacity: 0 }
   }
 
-  // useEffect(() => {
-  //   if (filterList2.length > 0) {
-  //     setLastList(filterList2)
-  //   } else {
-  //     if (inputValue.length > 0) {
-  //       dispatch(fetchBouquetFromName())
-  //       setLastList(list)
-  //     } else {
-  //       dispatch(fetchBouquet())
-  //       setLastList(list)
-  //     }
-  //   }
-  //   console.log(lastList)
-  // }, [displayLimit, inputValue, filterList2])
+  useEffect(() => {
+    dispatch(fetchBouquet())
+    setLastList(list)
+    console.log(lastList)
+  }, [displayLimit, inputValue])
   const bouquet = lastList.map((item, i) => (
     <motion.div
       key={item.id}
@@ -131,7 +113,7 @@ const Products: FC = () => {
           </button>
         </div>
         <div className="products__sort">
-          <ProductSort setSortPriceObj={setSortPriceObj} handleFilter={handleFilter} />
+          <ProductSort/>
         </div>
       </div>
     </UContainer>

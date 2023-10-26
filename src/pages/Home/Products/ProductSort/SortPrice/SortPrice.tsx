@@ -1,16 +1,11 @@
 import { FC, useEffect, useState } from 'react'
 import './SortPrice.scss'
 import CustomRadio from '../../../../../component/ui/customRadio/CustomRadio'
+import { useAppDispatch } from '../../../../../service/redux/hooks/hooks'
+import { setProductPrice } from '../../../../../service/redux/Slices/productPrice/slice'
 
-interface SortPriceProps {
-  setSortPriceObj: (value: {
-    name: string;
-    value1: number;
-    value2: number;
-  }) => void
-}
-
-const SortPrice: FC<SortPriceProps> = ({setSortPriceObj}) => {
+const SortPrice: FC = () => {
+  const dispatch = useAppDispatch()
   const [sortPriceName, setSortPriceName] = useState('')
 
   const sortPriceItems = [
@@ -23,7 +18,7 @@ const SortPrice: FC<SortPriceProps> = ({setSortPriceObj}) => {
   useEffect(() => {
     for (let i = 0; i < sortPriceItems.length; i++) {
       if (sortPriceItems[i].name === sortPriceName) {
-        setSortPriceObj(sortPriceItems[i])
+        dispatch(setProductPrice(sortPriceItems[i]))
       }
     }
   }, [sortPriceName])

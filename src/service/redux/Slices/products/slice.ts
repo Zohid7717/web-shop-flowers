@@ -78,6 +78,14 @@ export const fetchAllBouquet = createAsyncThunk<BouquetType[], undefined, { reje
   }
 )
 
+//филтрация по цене
+// export const fetchByPrice = createAsyncThunk<BouquetType[], undefined, { rejectValue: string }>(
+//   'bouquet/fetchByPrice',
+//   async (_, { rejectWithValue, getState }) => {
+    
+//   }
+// )
+
 const initialState: BouquetStateType = {
   list: [],
   loading: false,
