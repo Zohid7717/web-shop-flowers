@@ -82,8 +82,8 @@ const Products: FC = () => {
   useEffect(() => {
     dispatch(fetchBouquet())
     setLastList(list)
-    console.log(lastList)
   }, [displayLimit, inputValue])
+  console.log(lastList)
   const bouquet = lastList.map((item, i) => (
     <motion.div
       key={item.id}

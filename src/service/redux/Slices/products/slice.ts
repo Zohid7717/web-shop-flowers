@@ -78,13 +78,30 @@ export const fetchAllBouquet = createAsyncThunk<BouquetType[], undefined, { reje
   }
 )
 
-//филтрация по цене
-// export const fetchByPrice = createAsyncThunk<BouquetType[], undefined, { rejectValue: string }>(
-//   'bouquet/fetchByPrice',
-//   async (_, { rejectWithValue, getState }) => {
-    
-//   }
-// )
+// филтрация по цене
+export const fetchByPrice = createAsyncThunk<BouquetType[], undefined, { rejectValue: string }>(
+  'bouquet/fetchByPrice',
+  async (_, { rejectWithValue, getState }) => {
+    const categoryValue = (getState() as RootState).category.value
+    const productPrice = (getState() as RootState).productPrice
+    const productItems = (getState() as RootState).productItems.value
+    if (categoryValue.length > 0 && productPrice.value2 > 0 && productItems.length > 0) {
+      const response = await fetch(`http://localhost:3001/bouquets?category=${categoryValue}`)
+      if (!response.ok) {
+        return rejectWithValue('Server error')
+      }
+      const data: BouquetType[] = await response.json()
+      data.forEach(element => {
+        const firstData: BouquetType[]=[]
+        element.size.forEach(item => {
+          if ((item.price > productPrice.value1 && item.price < productPrice.value2 && !firstData.includes(element))) {
+            firstData.push(element)
+          }
+        })
+      })
+    }
+  }
+)
 
 const initialState: BouquetStateType = {
   list: [],
