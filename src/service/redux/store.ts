@@ -13,7 +13,7 @@ export const store = configureStore({
     category,
     productItems,
     inputValue,
-    productPrice
+    productPrice,
   }
 })
 

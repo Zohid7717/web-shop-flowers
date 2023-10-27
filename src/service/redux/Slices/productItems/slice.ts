@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../store';
 
-type ProductItemsType = {
+export type ProductItemsType = {
   value:string[]
 }
 

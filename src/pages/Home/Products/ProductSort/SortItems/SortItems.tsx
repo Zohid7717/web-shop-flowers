@@ -19,7 +19,7 @@ const SortItems: FC<SortItemsProps> = ({isDisabled}) => {
 
   const dispatch = useAppDispatch()
 
-  // dispatch(setProductItems(items))
+  dispatch(setProductItems(items))
 
   const addShowItems = () => {
     if ((productArr.length - showItems) > 8) {

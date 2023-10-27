@@ -20,52 +20,6 @@ const Products: FC = () => {
   const productItems = useAppSelector(state => state.productItems.value)
   const [lastList, setLastList] = useState<BouquetType[]>([])
 
-  //функция филтрации продуктов по цене
-  // function sortByPrice(arr: BouquetType[]) {
-  //   arr.forEach(item => {
-  //     item.size.forEach(element => {
-  //       if (element.price > sortPriceObj.value1 && element.price < sortPriceObj.value2 && !lastList.includes(item)) {
-  //         setFilterList1([...filterList1, item])
-  //       }
-  //     })
-  //   })
-  // }
-
-  //функция филтрации продуктов по содержанию продукта
-  function sortByItems(arr1: BouquetType[], arr2: string[]) {
-    let newArr: BouquetType[] = []
-    arr1.forEach(element => {
-      if (!newArr.includes(element)) {
-        arr2.forEach(item => {
-          element.composition.forEach(flo => {
-            if (item === flo && !newArr.includes(element)) {
-              newArr.push(element)
-            }
-          })
-        })
-      }
-    })
-    setLastList(newArr)
-  }
-
-  // const handleFilter = () => {
-  //   if (sortPriceObj.value2 > 1) {
-      // sortByPrice(list)
-  //     if (productItems.length > 0) {
-  //       sortByItems(filterList1, productItems)
-  //     } else {
-  //       setFilterList2(filterList1)
-  //     }
-  //   } else {
-  //     if (productItems.length > 0) {
-  //       sortByItems(list, productItems)
-  //     } else {
-  //       setFilterList2(list)
-  //     }
-  //   }
-  //   console.log(filterList2)
-  // }
-
   const handleShowMore = () => {
     dispatch(showMore())
   }
@@ -79,11 +33,11 @@ const Products: FC = () => {
     hidden: { opacity: 0 }
   }
 
-  useEffect(() => {
-    dispatch(fetchBouquet())
-    setLastList(list)
-  }, [displayLimit, inputValue])
-  console.log(lastList)
+  // useEffect(() => {
+  //   dispatch(fetchBouquet())
+  //   setLastList(list)
+  // }, [displayLimit, inputValue])
+  console.log(list)
   const bouquet = lastList.map((item, i) => (
     <motion.div
       key={item.id}

@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk, AnyAction, PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from '../../store';
+import { categoryPriceItems } from '../../../filterFunc/filterFunc';
 
 //создаем типы для Bouquet
 export interface BouquetType {
@@ -18,7 +19,7 @@ export interface BouquetType {
 }
 
 //создаем типы для state
-type BouquetStateType = {
+export type BouquetStateType = {
   list: BouquetType[];
   loading: boolean;
   error: string | null;
@@ -79,27 +80,18 @@ export const fetchAllBouquet = createAsyncThunk<BouquetType[], undefined, { reje
 )
 
 // филтрация по цене
-export const fetchByPrice = createAsyncThunk<BouquetType[], undefined, { rejectValue: string }>(
-  'bouquet/fetchByPrice',
+export const fetchByFilter = createAsyncThunk<BouquetType[], undefined, { rejectValue: string }>(
+  'bouquet/fetchByFilter',
   async (_, { rejectWithValue, getState }) => {
     const categoryValue = (getState() as RootState).category.value
     const productPrice = (getState() as RootState).productPrice
-    const productItems = (getState() as RootState).productItems.value
-    if (categoryValue.length > 0 && productPrice.value2 > 0 && productItems.length > 0) {
-      const response = await fetch(`http://localhost:3001/bouquets?category=${categoryValue}`)
-      if (!response.ok) {
-        return rejectWithValue('Server error')
-      }
-      const data: BouquetType[] = await response.json()
-      data.forEach(element => {
-        const firstData: BouquetType[]=[]
-        element.size.forEach(item => {
-          if ((item.price > productPrice.value1 && item.price < productPrice.value2 && !firstData.includes(element))) {
-            firstData.push(element)
-          }
-        })
-      })
+    const productItems = (getState() as RootState).productItems
+    const response = await fetch(`http://localhost:3001/bouquets?category=${categoryValue}`)
+    const data = await response.json()
+    if (!response.ok) {
+      return rejectWithValue('Server error')
     }
+    return (categoryPriceItems(data, productPrice, productItems))
   }
 )
 
@@ -144,6 +136,14 @@ const productSlice = createSlice({
         state.error = null
       })
       .addCase(fetchAllBouquet.fulfilled, (state, action) => {
+        state.list = action.payload
+        state.loading = false
+      })
+      .addCase(fetchByFilter.pending, (state) => {
+        state.loading = true
+        state.error = null
+      })
+      .addCase(fetchByFilter.fulfilled, (state, action) => {
         state.list = action.payload
         state.loading = false
       })
