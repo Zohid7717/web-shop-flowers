@@ -2,7 +2,7 @@ import { ProductItemsType } from '../redux/Slices/productItems/slice'
 import { PriceType } from '../redux/Slices/productPrice/slice'
 import { BouquetType } from '../redux/Slices/products/slice'
 
-export const categoryPriceItems = async (data: BouquetType[], price: PriceType, items: ProductItemsType) => {
+export const priceItems = async (data: BouquetType[], price: PriceType, items: ProductItemsType) => {
   const newArr1: BouquetType[] = []
   const newArr2: BouquetType[] = []
   const newArr: BouquetType[] = []
@@ -25,6 +25,32 @@ export const categoryPriceItems = async (data: BouquetType[], price: PriceType, 
       if (el.id === item.id && !newArr.includes(item)) {
         newArr.push(item)
       }
+    })
+  })
+  return newArr
+}
+
+export const price = async (data: BouquetType[], price: PriceType) => {
+  let newArr: BouquetType[] = []
+  data.forEach(element => {
+    element.size.forEach(item => {
+      if (item.price > price.value1 && item.price < price.value2 && !newArr.includes(element)) {
+        newArr.push(element)
+      }
+    })
+  });
+  return newArr
+}
+
+export const items = async (data: BouquetType[], items: ProductItemsType) => {
+  let newArr: BouquetType[] = []
+  data.forEach(element => {
+    element.composition.forEach(el => {
+      items.value.forEach(item => {
+        if (!newArr.includes(element) && el === item) {
+          newArr.push(element)
+        }
+      })
     })
   })
   return newArr

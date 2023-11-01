@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, AnyAction, PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from '../../store';
-import { categoryPriceItems } from '../../../filterFunc/filterFunc';
+import { items, price, priceItems } from '../../../filterFunc/filterFunc';
 
 //создаем типы для Bouquet
 export interface BouquetType {
@@ -86,12 +86,25 @@ export const fetchByFilter = createAsyncThunk<BouquetType[], undefined, { reject
     const categoryValue = (getState() as RootState).category.value
     const productPrice = (getState() as RootState).productPrice
     const productItems = (getState() as RootState).productItems
-    const response = await fetch(`http://localhost:3001/bouquets?category=${categoryValue}`)
+    let response
+    if (categoryValue.length > 0) {
+      response = await fetch(`http://localhost:3001/bouquets?category=${categoryValue}`)
+    } else {
+      response = await fetch(`http://localhost:3001/bouquets`)
+    }
     const data = await response.json()
     if (!response.ok) {
       return rejectWithValue('Server error')
     }
-    return (categoryPriceItems(data, productPrice, productItems))
+    if (productItems.value.length > 0 && productPrice.value2 > 0) {
+      return (priceItems(data, productPrice, productItems))
+    } else if (productItems.value.length < 1 && productPrice.value2 > 0) {
+      return price(data, productPrice)
+    } else if (productItems.value.length > 0 && productPrice.value2 === 0) {
+      return items(data, productItems)
+    } else {
+      return data
+    }
   }
 )
 

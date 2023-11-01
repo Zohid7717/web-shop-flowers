@@ -23,9 +23,14 @@ const productPriceSlice = createSlice({
       state.value1 = action.payload.value1;
       state.value2 = action.payload.value2;
     },
+    resetProductPrice: (state) => {
+      state.name = '';
+      state.value1 = 0;
+      state.value2 = 0;
+    },
   }
 })
 
-export const { setProductPrice } = productPriceSlice.actions
+export const { setProductPrice, resetProductPrice } = productPriceSlice.actions
 export const priceResult = (state: RootState) => state.productPrice
 export default productPriceSlice.reducer

@@ -17,10 +17,13 @@ const productItemsSlice = createSlice({
     setProductItems: (state, action: PayloadAction<string[]>) => {
       state.value = action.payload
     },
+    resetProductItems: (state) => {
+      state.value = []
+    },
   }
 })
 
-export const { setProductItems } = productItemsSlice.actions
+export const { setProductItems, resetProductItems } = productItemsSlice.actions
 
 export const productItemsResult = (state: RootState) => state.productItems
 

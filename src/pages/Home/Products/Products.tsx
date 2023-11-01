@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react'
 import SortHead from './SortHead/SortHead'
 import { useAppDispatch, useAppSelector } from '../../../service/redux/hooks/hooks'
-import { BouquetType, fetchBouquet, fetchBouquetFromCat, fetchBouquetFromName } from '../../../service/redux/Slices/products/slice'
+import { BouquetType, fetchBouquet, fetchBouquetFromCat, fetchBouquetFromName, fetchByFilter } from '../../../service/redux/Slices/products/slice'
 import UContainer from '../../../component/utils/UContainer/UContainer'
 import ProductCard from './ProductCard/ProductCard'
 import ProductSort from './ProductSort/ProductSort'
@@ -13,12 +13,7 @@ import ProductCardSkeleton from '../../../component/Skeleton/ProductCard/Product
 
 const Products: FC = () => {
   const dispatch = useAppDispatch()
-  const displayLimit: number = useAppSelector((state) => state.displayLimit.value)
-  const categoryValue = useAppSelector(state => state.category.value)
-  const inputValue = useAppSelector(state => state.inputValue.value)
   const { list, loading } = useAppSelector((state) => state.dataProducts)
-  const productItems = useAppSelector(state => state.productItems.value)
-  const [lastList, setLastList] = useState<BouquetType[]>([])
 
   const handleShowMore = () => {
     dispatch(showMore())
@@ -33,12 +28,11 @@ const Products: FC = () => {
     hidden: { opacity: 0 }
   }
 
-  // useEffect(() => {
-  //   dispatch(fetchBouquet())
-  //   setLastList(list)
-  // }, [displayLimit, inputValue])
-  console.log(list)
-  const bouquet = lastList.map((item, i) => (
+  useEffect(() => {
+    dispatch(fetchByFilter())
+  }, [])
+
+  const bouquet = list.map((item, i) => (
     <motion.div
       key={item.id}
       variants={listVariants}

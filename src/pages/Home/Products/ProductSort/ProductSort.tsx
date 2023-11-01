@@ -5,17 +5,24 @@ import SortCategory from './SortCategory/SortCategory'
 import './ProductSort.scss'
 import SortItems from './SortItems/SortItems'
 import { useAppDispatch, useAppSelector } from '../../../../service/redux/hooks/hooks'
-import { setInput } from '../../../../service/redux/Slices/inputValue/slice'
+import { resetInput, setInput } from '../../../../service/redux/Slices/inputValue/slice'
 import { fetchByFilter } from '../../../../service/redux/Slices/products/slice'
+import { resetCategory } from '../../../../service/redux/Slices/category/slice'
+import { resetProductItems } from '../../../../service/redux/Slices/productItems/slice'
+import { resetProductPrice } from '../../../../service/redux/Slices/productPrice/slice'
 
 const ProductSort: FC = () => {
   const [isDisabled, setIsDisabled] = useState<boolean>(false)
   const [sortInputValue, setSortInputValue] = useState<string>('')
   const dispatch = useAppDispatch()
-  const list = useAppSelector(state => state.dataProducts.list)
   const dis = () => {
     dispatch(fetchByFilter())
-    console.log(list)
+  }
+  const resetFilter = () => {
+    dispatch(resetCategory())
+    dispatch(resetInput())
+    dispatch(resetProductItems())
+    dispatch(resetProductPrice())
   }
   useEffect(() => {
     if (sortInputValue.length > 3) {
@@ -43,7 +50,7 @@ const ProductSort: FC = () => {
       <SortItems isDisabled={isDisabled} />
     </div>
     <div className="product-sort__btn">
-      <button className='UBtn-active product-sort__btn-clear'>Очистить</button>
+      <button className='UBtn-active product-sort__btn-clear' onClick={()=>resetFilter()}>Очистить</button>
       <button className='UBtn-active product-sort__btn-submit' onClick={()=>dis()}>Поиск</button>
     </div>
   </div>

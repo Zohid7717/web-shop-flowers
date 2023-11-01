@@ -15,11 +15,14 @@ const inputSlice = createSlice({
   reducers: {
     setInput: (state, action: PayloadAction<string>) => {
       state.value=action.payload
+    },
+    resetInput: (state) => {
+      state.value=""
     }
   }
 })
 
-export const { setInput } = inputSlice.actions
+export const { setInput, resetInput } = inputSlice.actions
 
 export const inputResult = (state: RootState) => state.input.value
 
