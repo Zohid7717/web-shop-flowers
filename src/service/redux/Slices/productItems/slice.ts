@@ -18,7 +18,7 @@ const productItemsSlice = createSlice({
       state.value = action.payload
     },
     resetProductItems: (state) => {
-      state.value = []
+      state.value.splice(0, state.value.length)
     },
   }
 })

@@ -12,17 +12,22 @@ import { resetProductItems } from '../../../../service/redux/Slices/productItems
 import { resetProductPrice } from '../../../../service/redux/Slices/productPrice/slice'
 
 const ProductSort: FC = () => {
+  const category = useAppSelector(state => state.category.value)
+  const input = useAppSelector(state => state.inputValue.value)
+  const items = useAppSelector(state => state.productItems.value)
+  const price = useAppSelector(state=>state.productPrice)
   const [isDisabled, setIsDisabled] = useState<boolean>(false)
   const [sortInputValue, setSortInputValue] = useState<string>('')
   const dispatch = useAppDispatch()
   const dis = () => {
     dispatch(fetchByFilter())
+    console.log(category)
+    console.log(input)
+    console.log(items)
+    console.log(price)
   }
   const resetFilter = () => {
-    dispatch(resetCategory())
-    dispatch(resetInput())
-    dispatch(resetProductItems())
-    dispatch(resetProductPrice())
+    
   }
   useEffect(() => {
     if (sortInputValue.length > 3) {
@@ -32,7 +37,7 @@ const ProductSort: FC = () => {
       setIsDisabled(false)
       dispatch(setInput(''))
     }
-  }, [sortInputValue])
+  }, [sortInputValue, category, input, items, price])
   return <div className='product-sort'>
     <div className="product-sort__input">
       <SortInput getValue={setSortInputValue} />
