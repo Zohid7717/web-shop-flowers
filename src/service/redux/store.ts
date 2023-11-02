@@ -5,6 +5,7 @@ import category from './Slices/category/slice'
 import productItems from './Slices/productItems/slice'
 import inputValue from './Slices/inputValue/slice'
 import productPrice from './Slices/productPrice/slice'
+import resetFilter from './Slices/resetFilter/slise'
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     productItems,
     inputValue,
     productPrice,
+    resetFilter
   }
 })
 

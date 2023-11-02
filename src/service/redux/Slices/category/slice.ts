@@ -2,11 +2,11 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { RootState } from '../../store'
 
 interface CategoryType {
-  value: string | null
+  value: string
 }
 
 const initialState: CategoryType = {
-  value: null
+  value: ''
 }
 const categorySlice = createSlice({
   name: 'category',
@@ -16,7 +16,7 @@ const categorySlice = createSlice({
       state.value = action.payload
     },
     resetCategory: (state)=>{
-      state.value = null
+      state.value = ''
     }
   }
 })

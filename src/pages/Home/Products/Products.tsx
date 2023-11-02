@@ -13,6 +13,8 @@ import ProductCardSkeleton from '../../../component/Skeleton/ProductCard/Product
 
 const Products: FC = () => {
   const dispatch = useAppDispatch()
+  const productItems = useAppSelector(state=>state.productItems.value)
+  const resetFilter = useAppSelector(state=>state.resetFilter.value)
   const { list, loading } = useAppSelector((state) => state.dataProducts)
 
   const handleShowMore = () => {

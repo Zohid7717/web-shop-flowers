@@ -1,6 +1,8 @@
-import { ChangeEvent, FC, useState } from 'react'
+import { ChangeEvent, FC, useState, useEffect } from 'react'
 import checkIcon from '../../../assets/icon/icon-checked.svg'
 import './CustomCheckbox.scss'
+import { useAppDispatch, useAppSelector } from '../../../service/redux/hooks/hooks';
+import { setResetFilterFalse } from '../../../service/redux/Slices/resetFilter/slise';
 
 interface CustomChackboxProps {
   name: string;
@@ -10,6 +12,8 @@ interface CustomChackboxProps {
 }
 
 const CustomCheckbox: FC<CustomChackboxProps> = ({ name, setStateElement, stateElement, isDisabled }) => {
+  const resetFilter = useAppSelector(state => state.resetFilter.value)
+  const dispatch = useAppDispatch()
   const [isChecked, setIsChecked] = useState(false);
   const handleCheckStateElement = (e: ChangeEvent<HTMLInputElement>) => {
     if (stateElement.includes(e.target.value)) {
@@ -22,14 +26,21 @@ const CustomCheckbox: FC<CustomChackboxProps> = ({ name, setStateElement, stateE
       )
     }
     setIsChecked(!isChecked);
+    // dispatch(setResetFilterFalse())
   }
+  
+  useEffect(() => {
+    if (resetFilter) {
+      setIsChecked(false)
+    }
+  },[resetFilter])
 
   return <div className='custom-checkbox'>
     <label className="custom-checkbox__label">
-      <input type="checkbox" checked={isChecked} className="custom-checkbox__input" value={name} onChange={handleCheckStateElement} disabled={isDisabled} />
+      <input type="checkbox" checked={isChecked} className="custom-checkbox__input" value={name} onChange={handleCheckStateElement } disabled={isDisabled} />
       <div className="custom-checkbox__new-checkbox">
         <div className={isChecked ? "custom-checkbox__checkbox-icon check-active-icon" : "custom-checkbox__checkbox-icon"}>
-          <img src={checkIcon} alt="chechIcon" />
+          <img src={checkIcon} alt="checkIcon" />
         </div>
         <p className={isChecked ? "custom-checkbox__title check-active-title" : "custom-checkbox__title"}>{name}</p>
       </div>

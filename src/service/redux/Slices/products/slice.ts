@@ -28,9 +28,8 @@ export type BouquetStateType = {
 //создаем и типизируем асинхронную функцию для получения данных
 export const fetchBouquet = createAsyncThunk<BouquetType[], undefined, { rejectValue: string }>(
   'bouquet/fetchBouquet',
-  async function (_, { rejectWithValue, getState }) {
-    const displayLimit = (getState() as RootState).displayLimit.value
-    const response = await fetch(`http://localhost:3001/bouquets?_limit=${displayLimit}`)
+  async function (_, { rejectWithValue }) {
+    const response = await fetch(`http://localhost:3001/bouquets}`)
     if (!response.ok) {
       return rejectWithValue('Server error')
     }

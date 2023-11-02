@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react'
 import CustomCheckbox from '../../../../../component/ui/customCheckbox/CustomCheckbox'
 import { BouquetType } from '../../../../../service/redux/Slices/products/slice'
-import { useAppDispatch } from '../../../../../service/redux/hooks/hooks'
+import { useAppDispatch, useAppSelector } from '../../../../../service/redux/hooks/hooks'
 import { setProductItems } from '../../../../../service/redux/Slices/productItems/slice'
 import './SortItems.scss'
 
@@ -9,7 +9,8 @@ interface SortItemsProps{
   isDisabled: boolean
 }
 
-const SortItems: FC<SortItemsProps> = ({isDisabled}) => {
+const SortItems: FC<SortItemsProps> = ({ isDisabled }) => {
+  const resetFilter = useAppSelector(state=>state.resetFilter.value)
   const [productData, setProductData] = useState<BouquetType[]>([])
   const [productArr, setProductArr] = useState<string[]>([])
   const [items, setItems] = useState<string[]>([])
@@ -47,11 +48,9 @@ const SortItems: FC<SortItemsProps> = ({isDisabled}) => {
   }, [])
   useEffect(() => {
     let newArr: string[] = []
-    let i: number = 0
     productData.forEach(element => {
       element.composition.forEach(item => {
         if (!newArr.includes(item)) {
-          i++
           newArr.push(item)
         }
       })
@@ -64,7 +63,10 @@ const SortItems: FC<SortItemsProps> = ({isDisabled}) => {
       newArr.push(productArr[i])
     }
     setShowQty(newArr)
-  }, [showItems, productArr])
+    if (resetFilter) {
+      setItems([])
+    }
+  }, [showItems, productArr, resetFilter])
   return <div className='sort-items'>
     {
       showQty.map((item, i) => (
