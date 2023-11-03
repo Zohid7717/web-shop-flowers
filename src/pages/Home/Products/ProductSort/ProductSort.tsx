@@ -31,6 +31,8 @@ const ProductSort: FC = () => {
   const resetFilter = () => {
     dispatch(setResetFilterTrue())
     dispatch(resetProductItems())
+    dispatch(resetCategory())
+    dispatch(resetProductPrice())
     dispatch(fetchByFilter())
     console.log()
     console.log(items)

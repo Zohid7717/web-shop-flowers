@@ -2,16 +2,15 @@ import { ChangeEvent, FC, useState, useEffect } from 'react'
 import checkIcon from '../../../assets/icon/icon-checked.svg'
 import './CustomCheckbox.scss'
 import { useAppDispatch, useAppSelector } from '../../../service/redux/hooks/hooks';
-import { setResetFilterFalse } from '../../../service/redux/Slices/resetFilter/slise';
 
-interface CustomChackboxProps {
+interface CustomCheckboxProps {
   name: string;
   setStateElement: (value: string[]) => void;
   stateElement: string[];
   isDisabled: boolean
 }
 
-const CustomCheckbox: FC<CustomChackboxProps> = ({ name, setStateElement, stateElement, isDisabled }) => {
+const CustomCheckbox: FC<CustomCheckboxProps> = ({ name, setStateElement, stateElement, isDisabled }) => {
   const resetFilter = useAppSelector(state => state.resetFilter.value)
   const dispatch = useAppDispatch()
   const [isChecked, setIsChecked] = useState(false);
@@ -26,7 +25,6 @@ const CustomCheckbox: FC<CustomChackboxProps> = ({ name, setStateElement, stateE
       )
     }
     setIsChecked(!isChecked);
-    // dispatch(setResetFilterFalse())
   }
   
   useEffect(() => {
