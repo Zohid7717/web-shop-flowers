@@ -11,7 +11,7 @@ interface CustomCheckboxProps {
 }
 
 const CustomCheckbox: FC<CustomCheckboxProps> = ({ name, setStateElement, stateElement, isDisabled }) => {
-  const resetFilter = useAppSelector(state => state.resetFilter.value)
+  const resetFilter = useAppSelector(state => state.resetFilter.id)
   const dispatch = useAppDispatch()
   const [isChecked, setIsChecked] = useState(false);
   const handleCheckStateElement = (e: ChangeEvent<HTMLInputElement>) => {
@@ -29,6 +29,7 @@ const CustomCheckbox: FC<CustomCheckboxProps> = ({ name, setStateElement, stateE
   
   useEffect(() => {
     if (resetFilter) {
+      setStateElement([])
       setIsChecked(false)
     }
   },[resetFilter])

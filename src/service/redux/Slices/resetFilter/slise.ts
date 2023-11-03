@@ -2,11 +2,13 @@ import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../store';
 
 interface ResetFilterType {
-  value: boolean
+  value: boolean,
+  id: number
 }
 
 const initialState: ResetFilterType = {
-  value: false
+  value: false,
+  id: 0
 }
 
 const resetFilterSlice = createSlice({
@@ -14,10 +16,12 @@ const resetFilterSlice = createSlice({
   initialState,
   reducers: {
     setResetFilter: (state) => {
-      state.value=!state.value
+      state.value = !state.value
+      state.id = new Date().getTime()
     },
     setResetFilterTrue: (state) => {
       state.value=true
+      state.id = new Date().getTime()
     },
     setResetFilterFalse: (state) => {
       state.value=false

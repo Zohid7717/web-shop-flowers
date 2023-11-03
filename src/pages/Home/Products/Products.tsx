@@ -10,11 +10,11 @@ import { motion } from 'framer-motion'
 
 import './Products.scss'
 import ProductCardSkeleton from '../../../component/Skeleton/ProductCard/ProductCardSkeleton'
+import { sortByDate } from '../../../service/filterFunc/filterFunc'
 
 const Products: FC = () => {
   const dispatch = useAppDispatch()
-  const productItems = useAppSelector(state=>state.productItems.value)
-  const resetFilter = useAppSelector(state=>state.resetFilter.value)
+  const inputValue = useAppSelector(state => state.inputValue.value)
   const { list, loading } = useAppSelector((state) => state.dataProducts)
 
   const handleShowMore = () => {
@@ -31,8 +31,14 @@ const Products: FC = () => {
   }
 
   useEffect(() => {
-    dispatch(fetchByFilter())
-  }, [])
+    if (inputValue.length > 3) {
+      dispatch(fetchBouquetFromName())
+    } else {
+      dispatch(fetchByFilter())
+    }
+    const newArr = sortByDate(list)
+    console.log(newArr)
+  }, [inputValue])
 
   const bouquet = list.map((item, i) => (
     <motion.div
@@ -63,7 +69,7 @@ const Products: FC = () => {
           </button>
         </div>
         <div className="products__sort">
-          <ProductSort/>
+          <ProductSort />
         </div>
       </div>
     </UContainer>

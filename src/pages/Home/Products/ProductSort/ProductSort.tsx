@@ -4,8 +4,8 @@ import SortPrice from './SortPrice/SortPrice'
 import SortCategory from './SortCategory/SortCategory'
 import './ProductSort.scss'
 import SortItems from './SortItems/SortItems'
-import { useAppDispatch, useAppSelector } from '../../../../service/redux/hooks/hooks'
-import { resetInput, setInput } from '../../../../service/redux/Slices/inputValue/slice'
+import { useAppDispatch} from '../../../../service/redux/hooks/hooks'
+import { setInput } from '../../../../service/redux/Slices/inputValue/slice'
 import { fetchByFilter } from '../../../../service/redux/Slices/products/slice'
 import { resetCategory } from '../../../../service/redux/Slices/category/slice'
 import { resetProductPrice } from '../../../../service/redux/Slices/productPrice/slice'
@@ -13,20 +13,12 @@ import { setResetFilterFalse, setResetFilterTrue } from '../../../../service/red
 import { resetProductItems } from '../../../../service/redux/Slices/productItems/slice'
 
 const ProductSort: FC = () => {
-  const resetFilterState = useAppSelector(state => state.resetFilter.value)
-  const category = useAppSelector(state => state.category.value)
-  const input = useAppSelector(state => state.inputValue.value)
-  const items = useAppSelector(state => state.productItems.value)
-  const price = useAppSelector(state => state.productPrice)
   const [isDisabled, setIsDisabled] = useState<boolean>(false)
   const [sortInputValue, setSortInputValue] = useState<string>('')
   const dispatch = useAppDispatch()
   const dis = () => {
     dispatch(fetchByFilter())
     dispatch(setResetFilterFalse())
-    console.log(category)
-    console.log(items)
-    console.log(resetFilterState)
   }
   const resetFilter = () => {
     dispatch(setResetFilterTrue())
@@ -34,9 +26,6 @@ const ProductSort: FC = () => {
     dispatch(resetCategory())
     dispatch(resetProductPrice())
     dispatch(fetchByFilter())
-    console.log()
-    console.log(items)
-    console.log(resetFilterState)
   }
   useEffect(() => {
     if (sortInputValue.length > 3) {
@@ -57,7 +46,7 @@ const ProductSort: FC = () => {
     </div>
     <div className="product-sort__category">
       <p className="product-sort__category-title">Категории:</p>
-      <SortCategory isDisabled={isDisabled} />
+      <SortCategory />
     </div>
     <div className="product-sort__items">
       <p className="product-sort__items-title">Букеты с...</p>
