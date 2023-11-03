@@ -1,5 +1,6 @@
-import { FC } from 'react'
+import { FC, useEffect, useState } from 'react'
 import './CustonRadio.scss'
+import { useAppSelector } from '../../../service/redux/hooks/hooks';
 
 type CustomRadioType = {
   name: string;
@@ -9,9 +10,15 @@ type CustomRadioType = {
 }
 
 const CustomRadio: FC<CustomRadioType> = ({ name, nameRadio, stateElement, setStateElement }) => {
+  const resetFilter = useAppSelector(state => state.resetFilter.value)
   const handleGetSortParams = (e: string) => {
     setStateElement(e)
   }
+  useEffect(() => {
+    if (resetFilter) {
+      setStateElement('')
+    }
+  }, [resetFilter])
   return <div className='custom-radio'>
     <label className='custom-radio__label'>
       <input type='radio' name={nameRadio} className='custom-radio__input' value={name} onChange={(e) => handleGetSortParams(e.target.value)} />
