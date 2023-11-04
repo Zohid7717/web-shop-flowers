@@ -7,15 +7,28 @@ import ProductCard from './ProductCard/ProductCard'
 import ProductSort from './ProductSort/ProductSort'
 import { showMore } from '../../../service/redux/Slices/displayLimit/slice'
 import { motion } from 'framer-motion'
-
-import './Products.scss'
 import ProductCardSkeleton from '../../../component/Skeleton/ProductCard/ProductCardSkeleton'
-import { sortByDate } from '../../../service/filterFunc/filterFunc'
+import { sortByDate, sortByPriceDESC, sortByPriceABC, sortByPopularity } from '../../../service/filterFunc/filterFunc'
+import './Products.scss'
+
+export type sortHeadObjType = {
+  title: string,
+  value: string
+}
 
 const Products: FC = () => {
   const dispatch = useAppDispatch()
   const inputValue = useAppSelector(state => state.inputValue.value)
   const { list, loading } = useAppSelector((state) => state.dataProducts)
+  const [sortHeadValue, setSortHeadValue] = useState('')
+  const [lastList, setLastList] = useState<BouquetType[]>([])
+
+  const sortHeadObj: sortHeadObjType[] = [
+    { title: 'Новизне', value: 'newness' },
+    { title: 'Цена по возростанию', value: 'increase' },
+    { title: 'Цена по убыванию', value: 'descend' },
+    { title: 'Популярности', value: 'popularity' }
+  ]
 
   const handleShowMore = () => {
     dispatch(showMore())
@@ -32,15 +45,39 @@ const Products: FC = () => {
 
   useEffect(() => {
     if (inputValue.length > 3) {
-      dispatch(fetchBouquetFromName())
+      if (sortHeadValue === 'newness') {
+        dispatch(fetchBouquetFromName())
+        setLastList(sortByDate(list))
+      } else if (sortHeadValue === 'increase') {
+        setLastList(sortByPriceABC(list))
+      } else if (sortHeadValue === 'descend') {
+        setLastList(sortByPriceDESC(list))
+      } else if (sortHeadValue === 'popularity') {
+        setLastList(sortByPopularity(list))
+      } else {
+        setLastList(list)
+      }
     } else {
-      dispatch(fetchByFilter())
+      if (sortHeadValue === 'newness') {
+        dispatch(fetchByFilter())
+        setLastList(sortByDate(list))
+      } else if (sortHeadValue === 'increase') {
+        dispatch(fetchByFilter())
+        setLastList(sortByPriceABC(list))
+      } else if (sortHeadValue === 'descend') {
+        dispatch(fetchByFilter())
+        setLastList(sortByPriceDESC(list))
+      } else if (sortHeadValue === 'popularity') {
+        dispatch(fetchByFilter())
+        setLastList(sortByPopularity(list))
+      } else {
+        dispatch(fetchByFilter())
+        setLastList(list)
+      }
     }
-    const newArr = sortByDate(list)
-    console.log(newArr)
-  }, [inputValue])
+  }, [inputValue, sortHeadValue])
 
-  const bouquet = list.map((item, i) => (
+  const bouquet = lastList.map((item, i) => (
     <motion.div
       key={item.id}
       variants={listVariants}
@@ -57,7 +94,7 @@ const Products: FC = () => {
       <div className="products__wrap">
         <div className="products__main">
           <div className="products__main-head">
-            <SortHead />
+            <SortHead sortHeadObj={sortHeadObj} sortHeadValue={sortHeadValue} setSortHeadValue={setSortHeadValue} />
           </div>
           <div className="products__main-list">
             {loading === true ?

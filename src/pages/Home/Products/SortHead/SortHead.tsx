@@ -1,16 +1,16 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import sortHeadBtn from '../../../../assets/icon/sortHead-btn.svg'
 
 import './SortHead.scss'
+import { sortHeadObjType } from '../Products'
 
-const SortHead: FC = () => {
-  const [sortHeadValue, setSortHeadValue] = useState('')
-  const sortHeadObj = [
-    { title: 'Новизне', value: 'newness' },
-    { title: 'Цена по возростанию', value: 'increase' },
-    { title: 'Цена по убыванию', value: 'descend' },
-    { title: 'Популярности', value: 'popularity' }
-  ]
+type SortHeadType = {
+  sortHeadObj: sortHeadObjType[],
+  sortHeadValue: string,
+  setSortHeadValue: (value: string)=>void
+}
+
+const SortHead: FC<SortHeadType> = ({sortHeadObj, sortHeadValue, setSortHeadValue}) => {
   return <div className='sortHead'>
     <p className="sortHead__title">Сортировать по:</p>
     <ul className="sortHead__items">

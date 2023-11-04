@@ -25,7 +25,6 @@ const ProductSort: FC = () => {
     dispatch(resetProductItems())
     dispatch(resetCategory())
     dispatch(resetProductPrice())
-    dispatch(fetchByFilter())
   }
   useEffect(() => {
     if (sortInputValue.length > 3) {

@@ -63,3 +63,25 @@ export function sortByDate(products:BouquetType[]) {
     return dateA - dateB;
   });
 }
+
+export function sortByPriceABC(products: BouquetType[]) {
+  return [...products].sort(function (a, b) {
+    const priceA = a.size[0].price
+    const priceB = b.size[0].price
+    return priceA - priceB
+  })
+}
+export function sortByPriceDESC(products: BouquetType[]) {
+  return [...products].sort(function (a, b) {
+    const priceA = a.size[0].price
+    const priceB = b.size[0].price
+    return priceB - priceA
+  })
+}
+export function sortByPopularity(products: BouquetType[]) {
+  return [...products].sort(function (a, b) {
+    const priceA = a.count
+    const priceB = b.count
+    return priceB - priceA
+  })
+}
