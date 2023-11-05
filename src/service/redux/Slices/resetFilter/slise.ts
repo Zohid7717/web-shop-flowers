@@ -3,12 +3,12 @@ import { RootState } from '../../store';
 
 interface ResetFilterType {
   value: boolean,
-  id: number
+  id: number,
 }
 
 const initialState: ResetFilterType = {
   value: false,
-  id: 0
+  id: 0,
 }
 
 const resetFilterSlice = createSlice({

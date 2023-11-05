@@ -2,15 +2,15 @@ import { FC, useEffect, useState } from 'react'
 import SortInput from './SortInput/SortInput'
 import SortPrice from './SortPrice/SortPrice'
 import SortCategory from './SortCategory/SortCategory'
-import './ProductSort.scss'
 import SortItems from './SortItems/SortItems'
 import { useAppDispatch} from '../../../../service/redux/hooks/hooks'
 import { setInput } from '../../../../service/redux/Slices/inputValue/slice'
-import { fetchByFilter } from '../../../../service/redux/Slices/products/slice'
 import { resetCategory } from '../../../../service/redux/Slices/category/slice'
 import { resetProductPrice } from '../../../../service/redux/Slices/productPrice/slice'
 import { setResetFilterFalse, setResetFilterTrue } from '../../../../service/redux/Slices/resetFilter/slise'
 import { resetProductItems } from '../../../../service/redux/Slices/productItems/slice'
+import './ProductSort.scss'
+import { fetchBouquet, fetchByFilter } from '../../../../service/redux/Slices/products/slice'
 
 const ProductSort: FC = () => {
   const [isDisabled, setIsDisabled] = useState<boolean>(false)
