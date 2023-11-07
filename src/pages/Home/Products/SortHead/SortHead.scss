@@ -6,6 +6,10 @@
   background-color: #FFFFFF;
   border-radius: 10px;
   margin-bottom: 20px;
+  position: relative;
+  @media (max-width: 856px){
+    justify-content: space-between;
+  }
 
   &__title {
     color: #828282;
@@ -17,6 +21,19 @@
     display: flex;
     justify-content: space-between;
     flex-grow: 1;
+    @media (max-width: 1070px){
+      flex-direction: column;
+      position: absolute;
+      background-color: #FFFFFF;
+      top: 70px;
+      padding: 20px;
+      border-radius: 8px;
+      display: none;
+    }
+    &.active{
+      display: flex;
+      gap: 15px;
+    }
   }
 
   &__item {
@@ -59,6 +76,19 @@
     border-radius: 50%;
     background-color: transparent;
     display: none;
+    @media (max-width: 856px){
+      display: block;
+    }
   }
 
+}
+
+.sortHead__title-btn{
+  padding: 10px;
+  background-color: transparent;
+  border: 1px solid #6AAE55;
+  border-radius: 6px;
+  color: #828282;
+  font-size: 16px;
+  font-weight: 700;
 }

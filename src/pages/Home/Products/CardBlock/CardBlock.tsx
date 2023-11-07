@@ -5,6 +5,7 @@ import ProductCard from './../ProductCard/ProductCard'
 import { useAppSelector } from '../../../../service/redux/hooks/hooks'
 import { BouquetType } from '../../../../service/redux/Slices/products/slice'
 import { sortByDate, sortByPriceDESC, sortByPriceABC, sortByPopularity } from '../../../../service/filterFunc/filterFunc'
+import './CardBlock.scss'
 
 type CardBlockTypes = {
   sortHeadValue: string
@@ -26,25 +27,25 @@ const CardBlock: FC<CardBlockTypes> = ({sortHeadValue}) => {
 
   useEffect(() => {
     if (inputValue.length > 3) {
-      if (sortHeadValue === 'newness') {
+      if (sortHeadValue === 'Новизне') {
         setLastList(sortByDate(list))
-      } else if (sortHeadValue === 'increase') {
+      } else if (sortHeadValue === 'Цена по возростанию') {
         setLastList(sortByPriceABC(list))
-      } else if (sortHeadValue === 'descend') {
+      } else if (sortHeadValue === 'Цена по убыванию') {
         setLastList(sortByPriceDESC(list))
-      } else if (sortHeadValue === 'popularity') {
+      } else if (sortHeadValue === 'Популярности') {
         setLastList(sortByPopularity(list))
       } else {
         setLastList(list)
       }
     } else {
-      if (sortHeadValue === 'newness') {
+      if (sortHeadValue === 'Новизне') {
         setLastList(sortByDate(list))
-      } else if (sortHeadValue === 'increase') {
+      } else if (sortHeadValue === 'Цена по возростанию') {
         setLastList(sortByPriceABC(list))
-      } else if (sortHeadValue === 'descend') {
+      } else if (sortHeadValue === 'Цена по убыванию') {
         setLastList(sortByPriceDESC(list))
-      } else if (sortHeadValue === 'popularity') {
+      } else if (sortHeadValue === 'Популярности') {
         setLastList(sortByPopularity(list))
       } else {
         setLastList(list)

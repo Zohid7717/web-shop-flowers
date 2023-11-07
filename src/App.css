@@ -26,3 +26,7 @@
 .green {
   color: #6AAE55;
 }
+.mainLayout__container{
+  position: relative;
+  z-index: 10;
+}
