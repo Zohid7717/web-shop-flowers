@@ -25,18 +25,6 @@ export type BouquetStateType = {
   error: string | null;
 }
 
-//создаем и типизируем асинхронную функцию для получения данных
-export const fetchBouquet = createAsyncThunk<BouquetType[], undefined, { rejectValue: string }>(
-  'bouquet/fetchBouquet',
-  async function (_, { rejectWithValue }) {
-    const response = await fetch(`http://localhost:3001/bouquets}`)
-    if (!response.ok) {
-      return rejectWithValue('Server error')
-    }
-    const data = await response.json()
-    return data
-  }
-)
 //получаенм продук по категориям
 export const fetchBouquetFromCat = createAsyncThunk<BouquetType[], undefined, { rejectValue: string }>(
   'bouquet/fetchBouquetFromCat',
@@ -65,20 +53,7 @@ export const fetchBouquetFromName = createAsyncThunk<BouquetType[], undefined, {
   }
 )
 
-//получения всех продуктов
-export const fetchAllBouquet = createAsyncThunk<BouquetType[], undefined, { rejectValue: string }>(
-  'bouquet/fetchAllBouquet',
-  async (_, { rejectWithValue }) => {
-    const response = await fetch(`http://localhost:3001/bouquets`)
-    if (!response.ok) {
-      return rejectWithValue('Server error')
-    }
-    const data = await response.json()
-    return data
-  }
-)
-
-// филтрация по цене
+// филтрация
 export const fetchByFilter = createAsyncThunk<BouquetType[], undefined, { rejectValue: string }>(
   'bouquet/fetchByFilter',
   async (_, { rejectWithValue, getState }) => {
@@ -119,14 +94,6 @@ const productSlice = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder
-      .addCase(fetchBouquet.pending, (state) => {
-        state.loading = true
-        state.error = null
-      })
-      .addCase(fetchBouquet.fulfilled, (state, action) => {
-        state.list = action.payload
-        state.loading = false
-      })
       .addCase(fetchBouquetFromCat.pending, (state) => {
         state.loading = true
         state.error = null
@@ -140,14 +107,6 @@ const productSlice = createSlice({
         state.error = null
       })
       .addCase(fetchBouquetFromName.fulfilled, (state, action) => {
-        state.list = action.payload
-        state.loading = false
-      })
-      .addCase(fetchAllBouquet.pending, (state) => {
-        state.loading = true
-        state.error = null
-      })
-      .addCase(fetchAllBouquet.fulfilled, (state, action) => {
         state.list = action.payload
         state.loading = false
       })

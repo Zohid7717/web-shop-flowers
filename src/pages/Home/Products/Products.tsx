@@ -1,7 +1,7 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useState } from 'react'
 import SortHead from './SortHead/SortHead'
-import { useAppDispatch, useAppSelector } from '../../../service/redux/hooks/hooks'
-import { BouquetType, fetchBouquet, fetchBouquetFromName, fetchByFilter } from '../../../service/redux/Slices/products/slice'
+import { useAppDispatch} from '../../../service/redux/hooks/hooks'
+import { fetchByFilter } from '../../../service/redux/Slices/products/slice'
 import UContainer from '../../../component/utils/UContainer/UContainer'
 
 import ProductSort from './ProductSort/ProductSort'

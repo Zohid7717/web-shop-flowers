@@ -7,10 +7,10 @@ import { useAppDispatch} from '../../../../service/redux/hooks/hooks'
 import { setInput } from '../../../../service/redux/Slices/inputValue/slice'
 import { resetCategory } from '../../../../service/redux/Slices/category/slice'
 import { resetProductPrice } from '../../../../service/redux/Slices/productPrice/slice'
-import { setResetFilterFalse, setResetFilterTrue } from '../../../../service/redux/Slices/resetFilter/slise'
+import { setResetFilterFalse, setResetFilterTrue } from '../../../../service/redux/Slices/resetFilter/slice'
 import { resetProductItems } from '../../../../service/redux/Slices/productItems/slice'
 import './ProductSort.scss'
-import { fetchBouquet, fetchByFilter } from '../../../../service/redux/Slices/products/slice'
+import {fetchBouquetFromName, fetchByFilter } from '../../../../service/redux/Slices/products/slice'
 
 const ProductSort: FC = () => {
   const [isDisabled, setIsDisabled] = useState<boolean>(false)
@@ -25,11 +25,13 @@ const ProductSort: FC = () => {
     dispatch(resetProductItems())
     dispatch(resetCategory())
     dispatch(resetProductPrice())
+    setSortInputValue('')
   }
   useEffect(() => {
     if (sortInputValue.length > 3) {
       setIsDisabled(true)
       dispatch(setInput(sortInputValue))
+      dispatch(fetchBouquetFromName())
     } else {
       setIsDisabled(false)
       dispatch(setInput(''))
@@ -37,7 +39,7 @@ const ProductSort: FC = () => {
   }, [sortInputValue])
   return <div className='product-sort'>
     <div className="product-sort__input">
-      <SortInput getValue={setSortInputValue} />
+      <SortInput getValue={setSortInputValue} value={sortInputValue} />
     </div>
     <div className="product-sort__price">
       <p className="product-sort__price-title">Стоимость:</p>

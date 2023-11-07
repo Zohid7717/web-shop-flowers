@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import sortHeadBtn from '../../../../assets/icon/sortHead-btn.svg'
 
 import './SortHead.scss'
@@ -7,12 +7,17 @@ import { sortHeadObjType } from '../Products'
 type SortHeadType = {
   sortHeadObj: sortHeadObjType[],
   sortHeadValue: string,
-  setSortHeadValue: (value: string)=>void
+  setSortHeadValue: (value: string) => void
 }
 
-const SortHead: FC<SortHeadType> = ({sortHeadObj, sortHeadValue, setSortHeadValue}) => {
+const SortHead: FC<SortHeadType> = ({ sortHeadObj, sortHeadValue, setSortHeadValue }) => {
+  const [width, setWidth] = useState<number>(0)
+  window.addEventListener('resize', () => {
+    setWidth(document.body.clientWidth)
+  })
+  
   return <div className='sortHead'>
-    <p className="sortHead__title">Сортировать по:</p>
+    {width < 1070 ? <button className="sortHead__title">Сортировать по:</button> : <p className="sortHead__title">Сортировать по:</p>}
     <ul className="sortHead__items">
       {sortHeadObj.map((item, i) => (
         <li
