@@ -42,7 +42,7 @@ const Steps: FC = () => {
     </div>
     <UContainer>
       <div className="steps__content">
-        <p className="steps__title">ЗАКАЗАТЬ В 5 ШАГОВ</p>
+        <p className="steps__title"> <span className='green'>ЗАКАЗАТЬ</span> В 5 ШАГОВ</p>
         <div className="steps__wrap">
           {stepsObj.map(item => (
             <div className="steps__item">
