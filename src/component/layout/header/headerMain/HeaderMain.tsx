@@ -1,10 +1,11 @@
 import { FC, useState } from 'react'
 import { Link } from 'react-router-dom'
-import UContainer from '../../../utils/UContainer/UContainer'
+import UContainer from '../../../ui/UContainer/UContainer'
 import userIcon from '../../../../assets/icon/user-icon.svg'
 import logo from '../../../../assets/icon/logo-icon.svg'
 
 import './HeaderMain.scss'
+import { checkIsAuth } from '../../../../service/redux/Slices/auth/slice'
 
 const headerMain: FC = () => {
   const [viewBox, setViewBox] = useState(false)
