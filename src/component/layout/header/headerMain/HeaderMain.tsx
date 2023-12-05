@@ -5,20 +5,26 @@ import userIcon from '../../../../assets/icon/user-icon.svg'
 import logo from '../../../../assets/icon/logo-icon.svg'
 
 import './HeaderMain.scss'
-import { checkIsAuth } from '../../../../service/redux/Slices/auth/slice'
+import UserNav from '../../../ui/UserNav/UserNav'
 
 const headerMain: FC = () => {
   const [viewBox, setViewBox] = useState(false)
-  const heandleViewer = () => {
+  const [viewUserMenu, setViewUserMenu] = useState(false)
+
+  const handleViewerUM = () => {
+    setViewUserMenu(!viewUserMenu)
+  }
+  const handleViewer = () => {
     setViewBox(!viewBox)
   }
+
   return <div className='header-main'>
     <UContainer>
       <div className="header-main__relative-box">
         <div className="header-main__wrap">
         </div>
         <div className="header-main__mobile-nav">
-          <div className="header-main__mobile-nav-menu" onClick={heandleViewer}>
+          <div className="header-main__mobile-nav-menu" onClick={handleViewer}>
             <div className="header-main__mobile-nav-menu-btn">
               <span className="header-main__mobile-nav-menu-btn-line"></span>
             </div>
@@ -32,7 +38,7 @@ const headerMain: FC = () => {
         </div>
         <div className={viewBox ? "header-main__box active-box" : "header-main__box"}>
           <div className="header-main__mobile">
-            <div className="header-main__burger" onClick={heandleViewer}>
+            <div className="header-main__burger" onClick={handleViewer}>
               <div className="header-main__burger-btn"></div>
               <p className="header-main__burger-text">
                 МЕНЮ
@@ -76,11 +82,9 @@ const headerMain: FC = () => {
                   <Link to='FAQ'>ИНФОРМАЦИЯ ДЛЯ КЛИЕНТА</Link>
                 </li>
               </ul>
-              <div className="header-main__menu-user">
-                <Link to='/' className='header-main__menu-user'>
-                  <img src={userIcon} alt="userIcon" />
-                  <p>МОИ ЗАКАЗЫ</p>
-                </Link>
+              <div className="header-main__menu-user-wrap">
+                <img src={userIcon} alt="userIcon" onClick={handleViewerUM} />
+                {viewUserMenu ? <UserNav handleViewerUM={handleViewerUM} /> : ''}
               </div>
               <div className="header-main__currancy">
                 <button>РУБ.</button>

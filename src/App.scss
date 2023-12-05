@@ -1,5 +1,6 @@
 .UBtn-active,
-.UBtn {
+.UBtn,
+.UBtn-disable {
   font-size: 16px;
   font-weight: 700;
   align-items: center;
@@ -8,7 +9,10 @@
   display: block;
   transition: 0.3s;
   border: 1px solid ;
+}
 
+.UBtn-active,
+.UBtn{
   &:hover {
     transform: translateY(-3px);
     box-shadow: 0px 4px 8px 0px rgba(106, 174, 85, 0.692);
@@ -45,6 +49,13 @@
   }
 }
 
+.UBtn-disable{
+  color: #BDBDBD;
+  background-color: transparent;
+  border-color:#BDBDBD;
+  cursor: default;
+}
+
 .green {
   color: #6AAE55;
 }
@@ -54,7 +65,7 @@
   z-index: 10;
 }
 
-.desctop-crumb{
+.desktop-crumb{
   display: block;
   @media (max-width: 616px){
     display: none;

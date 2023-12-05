@@ -8,6 +8,7 @@ type authStateType = {
   isLoading: boolean;
   status: string | null | {};
   admin: boolean;
+  isAuth: boolean;
 }
 
 const initialState: authStateType = {
@@ -16,6 +17,7 @@ const initialState: authStateType = {
   isLoading: false,
   status: null,
   admin: false,
+  isAuth: false,
 }
 
 interface UserResponse {
@@ -80,7 +82,16 @@ export const getMe = createAsyncThunk(
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {},
+  reducers: {
+    logout(state) {
+      state.user = null
+      state.isLoading = false
+      state.status = null
+      state.admin = false
+      state.token = null
+      state.isAuth = false
+    }
+  },
   extraReducers(builder) {
     builder
       //register
@@ -93,6 +104,7 @@ export const authSlice = createSlice({
         state.isLoading = false
         state.token = action.payload?.token
         state.admin = action.payload?.admin
+        state.isAuth = true
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.status = action.payload ? action.payload.message : null
@@ -106,6 +118,8 @@ export const authSlice = createSlice({
         state.status = action.payload?.message
         state.isLoading = false
         state.user = action.payload?.user
+        state.admin = action.payload?.admin
+        state.isAuth = true
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.status = action.payload ? action.payload : null
@@ -119,6 +133,7 @@ export const authSlice = createSlice({
         state.isLoading = false
         state.user = action.payload?.user
         state.token = action.payload?.token
+        state.isAuth = true
       })
       .addCase(getMe.rejected, (state, action) => {
         state.status = action.payload ? action.payload : null
@@ -127,6 +142,6 @@ export const authSlice = createSlice({
   },
 })
 
-export const checkIsAuth = (state: authStateType) => Boolean(state.token)
+export const { logout } = authSlice.actions
 
 export default authSlice.reducer

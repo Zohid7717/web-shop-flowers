@@ -20,3 +20,10 @@ export interface TypeForLogUser {
   nickname: string;
   password: string;
 }
+
+export interface FormType {
+  username: string
+  nickname: string
+  password: string
+  tel: string
+}

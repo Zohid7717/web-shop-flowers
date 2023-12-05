@@ -1,0 +1,58 @@
+.discount {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px 20px 15px 20px;
+
+  h2 {
+    display: inline-flex;
+    color: #FFF;
+    font-family: Literal;
+    font-size: 16px;
+    font-weight: 700;
+    background-color: #6AAE55;
+    border-radius: 4px;
+    padding: 3px 26px 5px;
+    line-height: 120%;
+  }
+
+  &__bar {
+    margin: 20px 0px 12px;
+    height: 55px;
+
+    &>p {
+      color: #828282;
+      font-family: Literal;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+  }
+
+  &__bar-body {
+    width: 100%;
+    height: 15px;
+    border-radius: 7.5px;
+    background-color: #e0e0e0;
+    position: relative;
+  }
+
+  &__border-text {
+    color: #BDBDBD;
+    font-family: Literal;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  &__border-percent {
+    color: #828282;
+    font-family: Literal;
+    font-size: 14px;
+    font-weight: 700;
+  }
+}
+
+.border {
+  position: absolute;
+  top: 100%;
+}

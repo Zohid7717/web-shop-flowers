@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import HeaderTop from './headerTop/HeaderTop'
-import HeaderMain from './headerMain/headerMain'
+import HeaderMain from './headerMain/HeaderMain'
 import './Header.scss'
 
 

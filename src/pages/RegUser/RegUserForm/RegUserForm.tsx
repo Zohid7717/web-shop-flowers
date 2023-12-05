@@ -1,18 +1,18 @@
 import { FC, SyntheticEvent } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import { useAppDispatch, useAppSelector } from '../../service/redux/hooks/hooks'
-import { registerUser } from '../../service/redux/Slices/auth/slice'
-import { FormType } from '../../utils/types'
-import './RegAdminForm.scss'
+import { useAppDispatch, useAppSelector } from '../../../service/redux/hooks/hooks'
+import { registerUser } from '../../../service/redux/Slices/auth/slice'
+import { FormType } from '../../../utils/types'
+
 
 interface RegAdminFormType extends FormType {
-  adminpass: string;
+  ccn: number;
 }
 
-const RegisterForm: FC = () => {
+const RegUserForm: FC = () => {
   const dispatch = useAppDispatch()
-  const status = useAppSelector(state => state.auth.status)
+  const status = useAppSelector(state => state.auth.isAuth)
   console.log(status)
   const navigate = useNavigate()
   const {
@@ -43,10 +43,9 @@ const RegisterForm: FC = () => {
     }
     setValue("tel", value)
   }
-
   return <div className='reg-form'>
-    <p className="reg-form__title">Форма для регистрации администратора</p>
-    <form className="reg-form__form" onSubmit={onSubmit} autoComplete='off'>
+    <p className="reg-form__title">Форма для регистрации пользователя</p>
+    <form className="reg-form__form" onSubmit={onSubmit} >
       <div className="reg-form__inputs">
         <label className='reg-form__username'>
           Введите имя и фамилию
@@ -96,16 +95,23 @@ const RegisterForm: FC = () => {
           </div>
         </label>
         <label className='reg-form__adminpass'>
-          Введите парол админа
+          Если хотите добавить карту
           <input
-            placeholder='Пароль для рег. админа'
+            placeholder='Номер карты'
             className='reg-form__input'
-            {...register("adminpass", {
-              required: "Поля обязательно к заполнению."
+            {...register("ccn", {
+              minLength: {
+                value: 16,
+                message: 'Длина номера карты должен иметь 16 чисел'
+              },
+              maxLength: {
+                value: 16,
+                message: 'Длина номера карты должен иметь 16 чисел'
+              }
             })}
           />
           <div className="reg-form__error">
-            {errors?.adminpass && <p>{errors.adminpass?.message || "Error!"}</p>}
+            {errors?.ccn && <p>{errors.ccn?.message || "Error!"}</p>}
           </div>
         </label>
         <label className='reg-form__tel'>
@@ -131,7 +137,7 @@ const RegisterForm: FC = () => {
         <button onClick={onCancel} className='UBtn reg-form__btn' type='reset'>
           Отмена
         </button>
-        <button className={isValid ? 'UBtn-active reg-form__btn' : 'UBtn-disable reg-form__btn' } type='submit' disabled={!isValid}>
+        <button  type='submit' className={isValid ? 'UBtn-active reg-form__btn' : 'UBtn-disable reg-form__btn'} disabled={!isValid}>
           Регистрация
         </button>
       </div>
@@ -139,4 +145,4 @@ const RegisterForm: FC = () => {
   </div>
 }
 
-export default RegisterForm
+export default RegUserForm

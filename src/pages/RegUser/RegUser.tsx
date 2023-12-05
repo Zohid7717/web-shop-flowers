@@ -1,10 +1,10 @@
 import { FC } from 'react'
 import UContainer from '../../component/ui/UContainer/UContainer'
-import RegAdminForm from '../../component/regAdminForm/RegAdminForm'
 import BreadCrumbs from '../../component/Breadcrumbs/BreadCrumbs'
-import './RegAdmin.scss'
+import RegUserForm from './RegUserForm/RegUserForm'
+import './RegUser.scss'
 
-const RegAdmin: FC = () => {
+const RegUser: FC = () => {
   return <div className='register'>
     <UContainer>
       <div className="register__wrap">
@@ -12,17 +12,17 @@ const RegAdmin: FC = () => {
           <BreadCrumbs />
         </div>
         <div className="register__menu">
-          <p className='register__title'>Регистрация Аминистратора</p>
+          <p className='register__title'>Регистрация Пользователя</p>
         </div>
         <div className="register__main">
           <div className="desktop-crumb">
             <BreadCrumbs />
           </div>
-          <RegAdminForm />
+          <RegUserForm />
         </div>
       </div>
     </UContainer>
   </div>
 }
 
-export default RegAdmin
+export default RegUser

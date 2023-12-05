@@ -1,8 +1,9 @@
 .header-main {
-  &__relative-box{
+  &__relative-box {
     position: relative;
     z-index: 100;
   }
+
   &__wrap {
     position: fixed;
   }
@@ -65,6 +66,7 @@
 
   &__box {
     transition: ease-in-out 0.5s;
+
     @media (max-width: 770px) {
       position: absolute;
       width: 100%;
@@ -151,13 +153,15 @@
       flex-direction: column;
     }
 
-    a {
+    a,
+    button {
       color: var(--Brown, #5B4A58);
       font-family: Literal;
       font-size: 14px;
       font-style: normal;
       font-weight: 400;
       line-height: normal;
+      background-color: transparent;
     }
   }
 
@@ -232,9 +236,30 @@
     }
   }
 
+  &__menu-user-wrap {
+    position: relative;
+    img{
+      cursor: pointer;
+    }
+  }
+
   &__menu-user {
-    a {
-      display: flex;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    position: absolute;
+    top: 0;
+    left: 130%;
+    background-color: #fff;
+    box-shadow: 0px 0px 14px 0px rgba(106, 174, 85, 0.692);
+    a, button{
+      text-align: left;
+      width: 100%;
+      padding: 15px;
+      transition: 0.5s;
+    }
+    a:hover, button:hover {
+      background-color: #6AAE55;
     }
 
     &>p {
