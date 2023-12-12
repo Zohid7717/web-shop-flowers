@@ -11,6 +11,12 @@ type authStateType = {
   isAuth: boolean;
 }
 
+interface RejectedAction {
+  type: string;
+  error: any;
+  payload: any;
+}
+
 const initialState: authStateType = {
   user: null,
   token: null,
@@ -21,7 +27,7 @@ const initialState: authStateType = {
 }
 
 interface UserResponse {
-  user: UserResType | null;
+  user: UserResType;
   token: string;
   message: string;
   admin: boolean;
@@ -31,16 +37,16 @@ interface UserResponse {
 //Регистрация пользователя или админа
 export const registerUser = createAsyncThunk<UserResponse, TypeForRegUser>(
   'auth/registerUser',
-  async ({ username, nickname, password, adminpass, tel, ccn }) => {
+  async ({ username, nickname, password, adminpass, tel, ccn }, { rejectWithValue }) => {
     try {
       const { data } = await axios.post('/auth/register', { username, nickname, password, adminpass, tel, ccn })
-      if (data.token) {
-        window.localStorage.setItem('token', data.token)
+      if (!data.token) {
+        throw new Error("Произошло ошибка при обработке данных.");
       }
+      window.localStorage.setItem('token', data.token)
       return data
     } catch (error) {
-      console.log(error.response.data.message)
-      return error.response.data
+      return rejectWithValue(error)
     }
   }
 )
@@ -52,14 +58,13 @@ export const loginUser = createAsyncThunk<UserResponse, TypeForLogUser>(
     try {
       const { data } = await axios.post('/auth/login', { nickname, password })
       if (!data) {
-        throw new Error("Произашло ошибка при обработке данный. пожалюста попробуйт еще раз.");
+        throw new Error("Произошло ошибка при обработке данных.");
       }
       if (data.token) {
         window.localStorage.setItem('token', data.token)
       }
       return data
     } catch (error) {
-      console.log(error)
       return rejectWithValue(error)
     }
   }
@@ -73,7 +78,6 @@ export const getMe = createAsyncThunk(
       const { data } = await axios.get('/auth/getMe')
       return data
     } catch (error) {
-      console.log(error)
       return rejectWithValue(error)
     }
   }
@@ -106,8 +110,10 @@ export const authSlice = createSlice({
         state.admin = action.payload?.admin
         state.isAuth = true
       })
-      .addCase(registerUser.rejected, (state, action) => {
-        state.status = action.payload ? action.payload.message : null
+      .addCase(registerUser.rejected, (state, action: RejectedAction) => {
+        state.status = action.error ? action.payload?.response.data.message : null
+        console.log(state.status)
+        state.isLoading = false
       })
       //login
       .addCase(loginUser.pending, (state) => {
@@ -121,8 +127,10 @@ export const authSlice = createSlice({
         state.admin = action.payload?.admin
         state.isAuth = true
       })
-      .addCase(loginUser.rejected, (state, action) => {
-        state.status = action.payload ? action.payload : null
+      .addCase(loginUser.rejected, (state, action: RejectedAction) => {
+        state.status = action.error ? action.payload?.response.data.message : null
+        console.log(state.status)
+        state.isLoading = false
       })
       //getMe
       .addCase(getMe.pending, (state) => {
@@ -135,8 +143,9 @@ export const authSlice = createSlice({
         state.token = action.payload?.token
         state.isAuth = true
       })
-      .addCase(getMe.rejected, (state, action) => {
-        state.status = action.payload ? action.payload : null
+      .addCase(getMe.rejected, (state, action: RejectedAction) => {
+        state.status = action.error ? action.payload?.response.data.message : null
+        console.log(state.status)
         state.isLoading = false
       })
   },

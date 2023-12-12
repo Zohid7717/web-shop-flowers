@@ -1,5 +1,5 @@
 import { FC, useState, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { useAppSelector, useAppDispatch } from '../../../service/redux/hooks/hooks'
 import { logout } from '../../../service/redux/Slices/auth/slice'
 import './UserNav.scss'
@@ -25,12 +25,12 @@ const UserNav: FC<funcType> = ({ handleViewerUM }) => {
   return <div>
     {auth ?
       <div className='header-main__menu-user'>
-        <Link to='/user' onClick={handleViewerUM}>КАБИНЕТ</Link>
+        <NavLink to='/user' onClick={handleViewerUM}>КАБИНЕТ</NavLink>
         <button onClick={handlerLogout}>ВЫХОД</button>
       </div> :
       <div className='header-main__menu-user'>
-        <Link to='/user/login' onClick={handleViewerUM}>АВТОРИЗАЦИЯ</Link>
-        <Link to='/user/register' onClick={handleViewerUM}>РЕГИСТРАЦИЯ</Link>
+        <NavLink to='/user/login' onClick={handleViewerUM}>АВТОРИЗАЦИЯ</NavLink>
+        <NavLink to='/user/register' onClick={handleViewerUM}>РЕГИСТРАЦИЯ</NavLink>
       </div>
     }
   </div>

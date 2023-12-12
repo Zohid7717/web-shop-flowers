@@ -1,22 +1,18 @@
 import { FC, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import UContainer from '../../../ui/UContainer/UContainer'
 import userIcon from '../../../../assets/icon/user-icon.svg'
 import logo from '../../../../assets/icon/logo-icon.svg'
 
 import './HeaderMain.scss'
-import UserNav from '../../../ui/UserNav/UserNav'
 
 const headerMain: FC = () => {
   const [viewBox, setViewBox] = useState(false)
-  const [viewUserMenu, setViewUserMenu] = useState(false)
 
-  const handleViewerUM = () => {
-    setViewUserMenu(!viewUserMenu)
-  }
   const handleViewer = () => {
     setViewBox(!viewBox)
   }
+  
 
   return <div className='header-main'>
     <UContainer>
@@ -82,10 +78,9 @@ const headerMain: FC = () => {
                   <Link to='FAQ'>ИНФОРМАЦИЯ ДЛЯ КЛИЕНТА</Link>
                 </li>
               </ul>
-              <div className="header-main__menu-user-wrap">
-                <img src={userIcon} alt="userIcon" onClick={handleViewerUM} />
-                {viewUserMenu ? <UserNav handleViewerUM={handleViewerUM} /> : ''}
-              </div>
+              <NavLink to='/user/info' className="header-main__menu-user-wrap">
+                <img src={userIcon} alt="userIcon" />
+              </NavLink>
               <div className="header-main__currancy">
                 <button>РУБ.</button>
                 <button>ДОЛ.</button>

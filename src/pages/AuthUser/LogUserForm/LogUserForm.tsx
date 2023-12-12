@@ -1,8 +1,9 @@
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
-import { useAppDispatch, useAppSelector } from '../../../service/redux/hooks/hooks'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { useAppDispatch, useAppSelector} from '../../../service/redux/hooks/hooks'
 import { loginUser } from '../../../service/redux/Slices/auth/slice'
+import { setFromPage } from '../../../service/redux/Slices/fromPage/slice'
 
 interface LogAdminFormType{
   nickname: string;
@@ -11,9 +12,10 @@ interface LogAdminFormType{
 
 const LogUserForm: FC = () => {
   const dispatch = useAppDispatch()
-  const status = useAppSelector(state => state.auth.status)
-  console.log(status)
   const navigate = useNavigate()
+  const location = useLocation()
+  const isAuth = useAppSelector(state=>state.auth.isAuth)
+  const fromPage = useAppSelector(state=>state.fromPage.value)
   const {
     register,
     handleSubmit,
@@ -23,15 +25,21 @@ const LogUserForm: FC = () => {
     mode: 'onChange'
   })
 
+  useEffect(() => {
+    if (isAuth) {
+      navigate(fromPage, {replace: true})
+    }
+  }, [isAuth])
+
   const onSubmit = handleSubmit((data) => {
     dispatch(loginUser(data))
-    navigate('/user')
+    dispatch(setFromPage(location.state?.from?.pathname || '/'))
     reset()
   })
 
   const onCancel = () => {
     reset()
-    navigate('/')
+    navigate(fromPage, {replace: true})
   }
 
   return <div className='reg-form'>
@@ -74,7 +82,7 @@ const LogUserForm: FC = () => {
           Отмена
         </button>
         <button className={isValid ? 'UBtn-active reg-form__btn' : 'UBtn-disable reg-form__btn' } type='submit' disabled={!isValid}>
-          Регистрация
+          Авторизация
         </button>
       </div>
     </form>

@@ -12,7 +12,7 @@ export interface UserResType{
   nickname: string;
   password: string;
   admin: boolean;
-  tel: string | null;
+  tel: string;
   ccn: number | null;
 }
 

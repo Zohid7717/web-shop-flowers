@@ -1,13 +1,13 @@
 .register{
   background: #F9F8FB;
-  @media (max-width: 616px){
+  @media (max-width: 808px){
     &>.UContainer{
       padding: 0;
     }
   }
   &__wrap{
     display: flex;
-    @media (max-width: 616px){
+    @media (max-width: 808px){
       flex-direction: column;
     }
   }
@@ -16,7 +16,7 @@
     min-width: 263px;
     padding: 37px 15px 0px;
     background-color: #F2F2F2;
-    @media (max-width: 616px){
+    @media (max-width: 808px){
       min-width: 100%;
       padding: 25px 15px 30px;
     }
@@ -24,7 +24,7 @@
   &__main{
     padding: 0 0 20px 20px;
     flex-grow: 1;
-    @media (max-width: 616px){
+    @media (max-width: 808px){
       padding: 0;
     }
   }

@@ -238,6 +238,9 @@
 
   &__menu-user-wrap {
     position: relative;
+    display: flex;
+    gap: 10px;
+    text-transform: uppercase;
     img{
       cursor: pointer;
     }
