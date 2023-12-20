@@ -1,5 +1,4 @@
 .profile-info {
-  border: 1px solid;
   padding: 21px 29px 29px;
   background-color: #fff;
   border-radius: 10px;
@@ -21,11 +20,17 @@
     gap: 9px;
     align-items: center;
     border-radius: 13px;
+    @media (max-width: 486px){
+      padding: 6px;
+    }
 
     &>span {
       color: #5B4A58;
       font-size: 14px;
       font-weight: 400;
+      @media (max-width: 486px){
+        display: none;
+      }
     }
 
     &>img {
@@ -39,16 +44,22 @@
   display: flex;
   flex-wrap: wrap;
   row-gap: 14px;
-  column-gap: 20px;
+  gap: 20px;
   justify-content: space-between;
   margin-top: 14px;
   flex-grow: 1;
+  @media (max-width: 546px){
+    justify-content: center;
+  }
   // width: 100%;
 
   &__wrap {
     min-width: 48%;
-    max-width: fit-content;
+    max-width: 48%;
     flex-grow: 1;
+    @media (max-width: 546px){
+      max-width: 100%;
+    }
   }
 
   &__title {
@@ -70,5 +81,11 @@
     font-weight: 400;
     line-height: 120%;
     height: 40px;
+  }
+}
+label{
+  &>p{
+    width: 100%;
+    font-size: 12px;
   }
 }

@@ -24,7 +24,8 @@ const LogUserForm: FC = () => {
   } = useForm<LogAdminFormType>({
     mode: 'onChange'
   })
-
+  dispatch(setFromPage(location.state?.from?.pathname || '/'))
+  
   useEffect(() => {
     if (isAuth) {
       navigate(fromPage, {replace: true})
@@ -33,7 +34,6 @@ const LogUserForm: FC = () => {
 
   const onSubmit = handleSubmit((data) => {
     dispatch(loginUser(data))
-    dispatch(setFromPage(location.state?.from?.pathname || '/'))
     reset()
   })
 

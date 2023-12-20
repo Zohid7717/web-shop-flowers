@@ -6,17 +6,31 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  &__settings{
+
+  &__settings {
     display: flex;
     justify-content: space-between;
   }
-  
-  &>div{
-    padding: 12px 12px 12px 20px;
+
+  &>a {
+    color: #5B4A58;
+    font-family: Literal;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    padding: 6px 12px 6px 20px;
     display: flex;
     align-items: center;
   }
-  &>div a:not(.user-menu__set){
+
+  &>div {
+    padding: 6px 12px 6px 20px;
+    display: flex;
+    align-items: center;
+  }
+
+  &>div a:not(.user-menu__set) {
     color: #5B4A58;
     font-family: Literal;
     font-size: 16px;
@@ -24,12 +38,13 @@
     background-color: transparent;
     text-align: left;
   }
-  
 
-  div:not(:last-child){
+
+  div:not(:last-child) {
     border-bottom: 1px solid #E0E0E0;
   }
-  &__set{
+
+  &__set {
     width: 26px;
     height: 26px;
     background-color: #F2F2F2;
@@ -39,6 +54,13 @@
     border-radius: 50%;
   }
 }
-.activeDoor{
+
+.activeDoor {
   background-color: #F6FFF3;
+}
+
+.user-info-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }

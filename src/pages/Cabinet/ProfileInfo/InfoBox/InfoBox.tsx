@@ -7,7 +7,6 @@ interface UserType {
 }
 
 const InfoBox: FC<UserType> = ({ user }) => {
-  console.log(user)
   return <div className='info-box'>
     <div className="info-box__wrap">
       <p className='info-box__title'>Имя и фамилия</p>

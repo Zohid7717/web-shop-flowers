@@ -4,17 +4,19 @@ import MainLayout from './component/layout/MainLayout/MainLayout';
 import Home from './pages/Home/Home';
 import NotFound from './pages/NotFound/NotFound';
 import RegAdmin from './pages/RegAdmin/RegAdmin';
-import { useAppDispatch} from './service/redux/hooks/hooks';
+import { useAppDispatch } from './service/redux/hooks/hooks';
 import { getMe } from './service/redux/Slices/auth/slice';
 import RequireAuth from './component/hoc/RequireAuth';
 
 import './App.scss'
+import ToastContainer from './component/Toast/ToastContainer';
 
 //Lazy loading
 const RegUserPage = React.lazy(() => import('./pages/RegUser/RegUser'))
 const LogUserPage = React.lazy(() => import('./pages/AuthUser/AuthUser'))
 const CabinetUserPage = React.lazy(() => import('./pages/Cabinet/Cabinet'))
-const UserInfo=React.lazy(()=>import('./pages/Cabinet/UserInfo/UserInfo'))
+const UserInfo = React.lazy(() => import('./pages/Cabinet/UserInfo/UserInfo'))
+const AddBouquet = React.lazy(() => import('./pages/Cabinet/AddBouquet/AddBouquet'))
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route path='/' element={<MainLayout />}>
@@ -59,9 +61,17 @@ const router = createBrowserRouter(createRoutesFromElements(
         <Suspense fallback={
           <p>Loading...</p>
         }>
-          <UserInfo/>
+          <UserInfo />
         </Suspense>
-      }/>
+      } />
+      <Route path='addbouquet' element={
+        <Suspense fallback={
+          <p>Loading...</p>
+        }>
+          <AddBouquet />
+        </Suspense>
+      } />
+
     </Route>
     <Route path='*' element={
       <Suspense fallback={
@@ -82,6 +92,7 @@ function App() {
   return (
     <>
       <RouterProvider router={router} />
+      <ToastContainer />
     </>
   )
 }

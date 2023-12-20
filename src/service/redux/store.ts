@@ -9,6 +9,7 @@ import resetFilter from './Slices/resetFilter/slice'
 import auth from './Slices/auth/slice'
 import discount from './Slices/discount/slice'
 import fromPage from './Slices/fromPage/slice'
+import flowers from "./Slices/flowers/slice";
 
 export const store = configureStore({
   reducer: {
@@ -21,7 +22,8 @@ export const store = configureStore({
     resetFilter,
     auth,
     discount,
-    fromPage
+    fromPage,
+    flowers
   }
 })
 

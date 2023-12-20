@@ -1,0 +1,21 @@
+.flower-selector {
+  border: 1px solid;
+
+  &__checkboxes {
+    border: 1px solid;
+    display: inline-flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  &__set {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+
+    &>label {
+      display: flex;
+      gap: 10px;
+    }
+  }
+}

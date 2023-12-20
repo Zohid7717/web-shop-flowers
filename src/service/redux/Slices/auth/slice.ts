@@ -6,7 +6,7 @@ type authStateType = {
   user: UserResType | null;
   token: string | null;
   isLoading: boolean;
-  status: string | null | {};
+  status: string | null ;
   admin: boolean;
   isAuth: boolean;
 }
@@ -83,6 +83,22 @@ export const getMe = createAsyncThunk(
   }
 )
 
+//Изменения данный пользователя
+export const updateUser = createAsyncThunk<UserResponse, TypeForRegUser>(
+  'auth/updateUser',
+  async ({ username, tel, nickname, ccn }, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.put('/auth/update', { username, tel, nickname, ccn })
+      if (!data) {
+        throw new Error('Произошло ошибка при обработке данных.')
+      }
+      return data
+    } catch (error) {
+      return rejectWithValue(error)
+    }
+  }
+)
+
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
@@ -112,7 +128,6 @@ export const authSlice = createSlice({
       })
       .addCase(registerUser.rejected, (state, action: RejectedAction) => {
         state.status = action.error ? action.payload?.response.data.message : null
-        console.log(state.status)
         state.isLoading = false
       })
       //login
@@ -129,7 +144,6 @@ export const authSlice = createSlice({
       })
       .addCase(loginUser.rejected, (state, action: RejectedAction) => {
         state.status = action.error ? action.payload?.response.data.message : null
-        console.log(state.status)
         state.isLoading = false
       })
       //getMe
@@ -144,6 +158,19 @@ export const authSlice = createSlice({
         state.isAuth = true
       })
       .addCase(getMe.rejected, (state, action: RejectedAction) => {
+        state.status = action.error ? action.payload?.response.data.message : null
+        state.isLoading = false
+      })
+    //update
+      .addCase(updateUser.pending, (state) => {
+        state.isLoading = true
+      })
+      .addCase(updateUser.fulfilled, (state, action) => {
+        state.status = null
+        state.isLoading = false
+        state.user = action.payload?.user
+      })
+      .addCase(updateUser.rejected, (state, action: RejectedAction) => {
         state.status = action.error ? action.payload?.response.data.message : null
         console.log(state.status)
         state.isLoading = false

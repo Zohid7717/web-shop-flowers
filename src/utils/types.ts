@@ -4,7 +4,7 @@ export interface TypeForRegUser{
   password: string;
   adminpass?: string;
   tel?: string;
-  ccn?: number;
+  ccn?: number | null | string;
 }
 
 export interface UserResType{
@@ -13,7 +13,7 @@ export interface UserResType{
   password: string;
   admin: boolean;
   tel: string;
-  ccn: number | null;
+  ccn: number | null | string;
 }
 
 export interface TypeForLogUser {
@@ -26,4 +26,26 @@ export interface FormType {
   nickname: string
   password: string
   tel: string
+}
+
+export interface BouquetSizeType{
+  size_used: boolean
+  size_name: string
+  size_price: number
+  discount_price?: number
+}
+
+export interface BouquetType {
+  name: string
+  category: string
+  composition: FlowerType[]
+  size: BouquetSizeType[]
+  count?: number
+  status?: string
+  flower_img: string[]
+}
+
+export interface FlowerType{
+  _id: string
+  flower_name: string
 }

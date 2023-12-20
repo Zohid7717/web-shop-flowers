@@ -28,7 +28,6 @@ const Cabinet: FC = () => {
   }
 
   useEffect(() => {
-    console.log(Admin)
   }, [Admin])
   return <div className='register'>
     <UContainer>
@@ -49,11 +48,9 @@ const Cabinet: FC = () => {
                 <img src={editIcon} alt="edit-icon" />
               </button>
             </div>
-            {Admin ? <div className={activeDoor === 'bouquet' ? 'activeDoor' : ''}>
-              <button onClick={() => setActiveDoor('bouquet')} >
-                Добавить букет
-              </button>
-            </div> : ''}
+            {Admin ? <Link to='addbouquet' onClick={() => setActiveDoor('bouquet')} className={activeDoor === 'bouquet' ? 'activeDoor' : ''}>
+              Добавить букет
+            </Link> : ''}
             {Admin ?
               <div className={activeDoor === 'gift' ? 'activeDoor' : ''}>
                 <button onClick={() => setActiveDoor('gift')} >

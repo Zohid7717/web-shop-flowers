@@ -9,7 +9,6 @@ import InfoEditForm from './InfoEditForm/InfoEditForm';
 const ProfileInfo: FC = () => {
   const user = useAppSelector(state => state.auth.user)
   const [editUserInfo, setEditUserInfo] = useState(false)
-  console.log(user)
 
   return <div className='profile-info'>
     <div className="profile-info__head">
