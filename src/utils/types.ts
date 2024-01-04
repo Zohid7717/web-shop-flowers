@@ -28,24 +28,27 @@ export interface FormType {
   tel: string
 }
 
-export interface BouquetSizeType{
-  size_used: boolean
-  size_name: string
-  size_price: number
-  discount_price?: number
-}
-
 export interface BouquetType {
+  _id: string
   name: string
   category: string
   composition: FlowerType[]
-  size: BouquetSizeType[]
+  size: SizeType[]
   count?: number
   status?: string
-  flower_img: string[]
+  bouquetImg: string[] | null
 }
 
 export interface FlowerType{
   _id: string
   flower_name: string
 }
+
+export interface SizeType{
+  size_name: string | null
+  size_price: number | null
+  discount_price?: number | null
+  size_use: boolean
+  error: string | null
+}
+

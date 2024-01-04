@@ -48,10 +48,10 @@ const RegisterForm: FC = () => {
     <p className="reg-form__title">Форма для регистрации администратора</p>
     <form className="reg-form__form" onSubmit={onSubmit} autoComplete='off'>
       <div className="reg-form__inputs">
-        <label className='reg-form__username'>
+        <label className='reg-form__username form__label'>
           Введите имя и фамилию
           <input
-            className='reg-form__input'
+            className='reg-form__input form__input'
             placeholder='Имя Фамилия'
             {...register("username", {
               required: "Поля обязательно к заполнению",
@@ -65,11 +65,11 @@ const RegisterForm: FC = () => {
             {errors?.username && <p>{errors.username?.message || "Error!"}</p>}
           </div>
         </label>
-        <label className='reg-form__nickname'>
+        <label className='reg-form__nickname form__label'>
           Введите псевдоним
           <input
             placeholder='MyNickName'
-            className='reg-form__input'
+            className='reg-form__input form__input'
             {...register("nickname", {
               required: "Поля обязательно к заполнению",
             })}
@@ -78,11 +78,11 @@ const RegisterForm: FC = () => {
             {errors?.nickname && <p>{errors.nickname?.message || "Error!"}</p>}
           </div>
         </label>
-        <label className='reg-form__password'>
+        <label className='reg-form__password form__label'>
           Введите парол
           <input
             placeholder='Пароль из 8 символов'
-            className='reg-form__input'
+            className='reg-form__input form__input'
             {...register("password", {
               required: "Поля обязательно к заполнению.",
               minLength: {
@@ -95,11 +95,11 @@ const RegisterForm: FC = () => {
             {errors?.password && <p>{errors.password?.message || "Error!"}</p>}
           </div>
         </label>
-        <label className='reg-form__adminpass'>
+        <label className='reg-form__adminpass form__label'>
           Введите парол админа
           <input
             placeholder='Пароль для рег. админа'
-            className='reg-form__input'
+            className='reg-form__input form__input'
             {...register("adminpass", {
               required: "Поля обязательно к заполнению."
             })}
@@ -112,7 +112,7 @@ const RegisterForm: FC = () => {
           Введите номер телефона
           <input
             placeholder='998 ХХ ХХХ ХХ ХХ'
-            className='reg-form__input'
+            className='reg-form__input form__input'
             {...register("tel", {
               required: "Поля обязательно к заполнению.",
               pattern: {

@@ -1,17 +1,24 @@
 import { FC, useEffect } from 'react'
 import './Toast.scss'
+import { useAppDispatch } from '../../service/redux/hooks/hooks'
+import { clearMessage } from '../../service/redux/Slices/toast/slice'
 
 interface ToastTypes {
-  message: string,
-  onClose: ()=>void
+  message: string | null,
+  onClose: () => void
 }
 
 const Toast: FC<ToastTypes> = ({ message, onClose }) => {
+  const dispatch = useAppDispatch()
   useEffect(() => {
     const timeOut = setTimeout(() => {
       onClose()
     }, 10000)
-    return ()=>clearTimeout(timeOut)
+    
+    if (message?.length ! > 0) {
+      dispatch(clearMessage())
+    }
+    return () => clearTimeout(timeOut)
   }, [onClose])
   return <div className='toast'>
     <p>{message}</p>

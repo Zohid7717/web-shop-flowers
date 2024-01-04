@@ -4,6 +4,7 @@ import { useAppSelector } from '../../service/redux/hooks/hooks'
 
 const ToastContainer: FC = () => {
   const userStatus = useAppSelector(state => state.auth.status)
+  const message = useAppSelector(state => state.toast.message)
   const [toasts, setToasts] = useState<string[]>([])
   const addToast = (message: string) => {
     setToasts([...toasts, message])
@@ -15,10 +16,10 @@ const ToastContainer: FC = () => {
   }
 
   useEffect(() => {
-    if (userStatus) {
-      addToast(userStatus)
+    if (userStatus || message) {
+      addToast(userStatus || message)
     }
-  }, [userStatus])
+  }, [userStatus, message])
 
   return <div className='toast-container'>
     {toasts.map((message, index) => (

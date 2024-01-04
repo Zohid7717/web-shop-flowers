@@ -10,6 +10,9 @@ import auth from './Slices/auth/slice'
 import discount from './Slices/discount/slice'
 import fromPage from './Slices/fromPage/slice'
 import flowers from "./Slices/flowers/slice";
+import images from "./Slices/flowerImages/slice";
+import toast from "./Slices/toast/slice";
+import bouquet from "./Slices/bouquet/slice"
 
 export const store = configureStore({
   reducer: {
@@ -23,7 +26,10 @@ export const store = configureStore({
     auth,
     discount,
     fromPage,
-    flowers
+    flowers,
+    images,
+    toast,
+    bouquet
   }
 })
 
